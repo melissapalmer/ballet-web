@@ -1,6 +1,8 @@
 # CLAUDE.md — Project rules for The Enchanted World of Oz site
 
-A small static site promoting a single ballet show performed once (Saturday 16 May 2026). Hosted on GitHub Pages. This file captures rules that should be respected without being asked. Add to it whenever the user gives feedback that should stick across sessions.
+A small static **logistics hub for the dance moms** preparing for Dandelion Studio of Dance's 2026 showcase (Saturday 16 May 2026). Hosted on GitHub Pages. This file captures rules that should be respected without being asked. Add to it whenever the user gives feedback that should stick across sessions.
+
+> **Audience pivot (Apr 2026):** the site started as a public-facing show-promotion page (poster, synopsis, Buy Tickets CTA) and was deliberately re-scoped to be mom-facing only — schedule, volunteer signups, orders, contact. The studio's existing Playhouse / Webtickets pages handle public ticket sales. Don't reintroduce ticket CTAs or the synopsis tab without checking.
 
 ## Stack rules — non-negotiable
 
@@ -17,14 +19,16 @@ A small static site promoting a single ballet show performed once (Saturday 16 M
 - **Tap targets ≥ 44×44px.**
 - **Use `clamp()` for type and padding.**
 - **Use `100dvh`/`100dvw`** (not `vh`/`vw`) for full-screen overlays.
-- **Layout is tab-based** — no scroll-to-anchor sections. Tabs are Home, The Show, Tickets, Studio, Gallery (hidden until photos exist).
-- **Hero is compact** — logo on the left, "presents" + show title + tagline on the right.
-- **Show poster is on the Home tab**, alongside the key-info card and Buy Tickets CTA. Don't stuff it into the hero — it belongs in the tab body.
+- **Layout is tab-based** — no scroll-to-anchor sections. Tabs are Home, Schedule, Volunteers, Orders, Contact, Studio, Gallery (hidden until photos exist).
+- **Hero is compact** — logo on the left, "Dance moms hub" + show title + tagline on the right. The hero stays consistent across tabs.
 
 ## Content rules
 
-- **Show data is the source of truth.** The show is on Saturday 16 May 2026, two showtimes 12:00 and 15:00, R190 per ticket, Playhouse Drama Theatre Durban, tickets at <https://www.webtickets.co.za/v2/event.aspx?itemid=1593575348> (also Pick n Pay). If any of these change, update both `index.html` and the countdown date in `app.js` (`SHOW_DATETIME`).
-- **Synopsis is from the Playhouse article** (<https://playhousecompany.com/2026/04/22/the-enchanted-world-of-oz/>). Don't paraphrase further without checking the user.
+- **Site is mom-facing only.** Don't add public Buy Tickets CTAs, ticket prices, the show synopsis, or the show poster to any tab. The studio handles public promotion via Playhouse Company / Webtickets.
+- **Show date is the source of truth.** Saturday 16 May 2026, two performances 12:00 and 15:00, Playhouse Drama Theatre Durban. Rehearsals 1 May (regular) and 9 May (dress, TBC). The countdown in `app.js` aims at the 12:00 show (`SHOW_DATETIME`). Update both `index.html` and `app.js` if dates shift.
+- **Google Form URLs are placeholders** (`#TODO-shirt-order-form`, `#TODO-leotard-order-form`, `#TODO-name-spelling-form`, `#TODO-volunteer-form`). When the studio sends URLs, replace them via Edit and commit. `grep -n '#TODO-' index.html` lists every outstanding placeholder.
+- **Contact details are placeholders too** (`#TODO-contact-name`, `#TODO-whatsapp-number`, `#TODO-whatsapp-link`, `#TODO-email-address`, `#TODO-email-mailto`). Same `grep` lists them.
+- **Studio Facebook link is real** and confirmed: <https://web.facebook.com/p/Dandelion-Studio-of-Dance-61563399494901/>. Used on Contact and Studio tabs.
 - **Gallery photos** live in `data/photos.csv` (`filename,date,event,caption`) and `images/photos/`. Photos group by year, then by event. Newest first. The Gallery tab stays hidden when the CSV has only a header — do not "unhide" it without rows.
 - **Footer is a random Oz quote only** (defined in `app.js`'s `QUOTES` array). Don't add credits, sponsor logos, or other footer content without asking.
 

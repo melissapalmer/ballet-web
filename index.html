@@ -4,12 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#1f8a4c">
-  <title>The Enchanted World of Oz — Dandelion Studio of Dance</title>
-  <meta name="description" content="The Enchanted World of Oz — a full-company ballet showcase by Dandelion Studio of Dance, Saturday 16 May 2026 at the Playhouse Drama Theatre, Durban.">
-  <meta property="og:title" content="The Enchanted World of Oz — Dandelion Studio of Dance">
-  <meta property="og:description" content="A full-company ballet showcase. Saturday 16 May 2026, 12:00 & 15:00 shows. Playhouse Drama Theatre, Durban.">
-  <meta property="og:image" content="images/poster.jpg">
-  <meta property="og:type" content="website">
+  <title>Dance Moms &middot; The Enchanted World of Oz</title>
+  <meta name="description" content="Logistics hub for Dandelion Studio of Dance moms — schedule, volunteer shifts, shirt &amp; leotard orders, and contact details for The Enchanted World of Oz.">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
   <link rel="icon" href="images/favicon.ico">
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
@@ -25,9 +21,9 @@
     <img src="images/logo.png" alt="The Enchanted World of Oz">
   </a>
   <div class="hero-text">
-    <p class="presents">Dandelion Studio of Dance presents</p>
+    <p class="presents">Dance moms hub</p>
     <h1 class="show-name">The Enchanted World of Oz</h1>
-    <p class="tagline">A full-company ballet showcase &middot; Saturday 16 May 2026</p>
+    <p class="tagline">Schedule, volunteers and orders for our 2026 showcase.</p>
   </div>
 </header>
 
@@ -38,8 +34,10 @@
   </label>
   <div class="nav-list" role="tablist">
     <button class="tab-btn active" role="tab" data-tab="home" aria-selected="true">Home</button>
-    <button class="tab-btn" role="tab" data-tab="show" aria-selected="false">The Show</button>
-    <button class="tab-btn" role="tab" data-tab="tickets" aria-selected="false">Tickets</button>
+    <button class="tab-btn" role="tab" data-tab="schedule" aria-selected="false">Schedule</button>
+    <button class="tab-btn" role="tab" data-tab="volunteers" aria-selected="false">Volunteers</button>
+    <button class="tab-btn" role="tab" data-tab="orders" aria-selected="false">Orders</button>
+    <button class="tab-btn" role="tab" data-tab="contact" aria-selected="false">Contact</button>
     <button class="tab-btn" role="tab" data-tab="studio" aria-selected="false">Studio</button>
     <button class="tab-btn tab-gallery" role="tab" data-tab="gallery" aria-selected="false" hidden>Gallery</button>
   </div>
@@ -48,77 +46,186 @@
 <main>
 
   <section id="home" class="tab-content active" role="tabpanel">
-    <div class="home-hero">
-      <a class="poster-link" href="https://www.webtickets.co.za/v2/event.aspx?itemid=1593575348" target="_blank" rel="noopener" aria-label="Buy tickets on Webtickets">
-        <img class="poster" src="images/poster.jpg" alt="The Enchanted World of Oz — Dandelion Studio of Dance, Saturday 16 May, 12:00 & 15:00 shows, Playhouse Drama Theatre, R190 per ticket.">
-      </a>
-      <div class="home-hero-body">
-        <p class="welcome">Step over the rainbow with Dandelion Studio of Dance for a vibrant, full-company reimagining of Dorothy&rsquo;s magical journey &mdash; brought to life through the art of dance.</p>
-        <dl class="key-info">
-          <div><dt>Date</dt><dd>Saturday 16 May 2026</dd></div>
-          <div><dt>Shows</dt><dd>12:00 &amp; 15:00</dd></div>
-          <div><dt>Venue</dt><dd>Playhouse Drama Theatre, Durban</dd></div>
-          <div><dt>Tickets</dt><dd>R190</dd></div>
-        </dl>
-        <a class="cta-buy" href="https://www.webtickets.co.za/v2/event.aspx?itemid=1593575348" target="_blank" rel="noopener">Buy Tickets &rsaquo;</a>
-        <p class="cta-sub">Tickets via <strong>Webtickets</strong> &mdash; also available at Pick n Pay.</p>
-      </div>
-    </div>
+    <p class="welcome">Welcome dance moms &mdash; everything you need for <em>The Enchanted World of Oz</em> in one place. Rehearsal times, volunteer signup, shirt &amp; leotard orders, and how to reach us.</p>
 
     <div class="countdown-card" id="countdown-card">
       <span class="countdown-label">Curtain up at the <strong>12:00</strong> show in</span>
       <span class="countdown-value" id="countdown">&mdash;</span>
     </div>
+
+    <h3>What can I help with?</h3>
+    <div class="home-tiles">
+      <button type="button" class="home-tile" data-go="schedule">
+        <span class="home-tile-title">Schedule</span>
+        <span class="home-tile-sub">Rehearsal &amp; show times</span>
+      </button>
+      <button type="button" class="home-tile" data-go="volunteers">
+        <span class="home-tile-title">Volunteer</span>
+        <span class="home-tile-sub">Sign up for a shift</span>
+      </button>
+      <button type="button" class="home-tile" data-go="orders">
+        <span class="home-tile-title">Orders</span>
+        <span class="home-tile-sub">Shirts, leotards, name check</span>
+      </button>
+      <button type="button" class="home-tile" data-go="contact">
+        <span class="home-tile-title">Contact</span>
+        <span class="home-tile-sub">Questions? Reach us here</span>
+      </button>
+    </div>
   </section>
 
-  <section id="show" class="tab-content" role="tabpanel">
-    <h2>The Show</h2>
-    <p class="lede">Dandelion Studio of Dance invites you to step into <em>The Enchanted World of Oz</em> &mdash; a vibrant, full-company reimagining of Dorothy&rsquo;s magical journey, brought to life through the art of dance.</p>
-    <p>From a quiet Arizona farm, through swirling tornadoes and over the rainbow, audiences will be transported to Munchkin Land and along the Yellow Brick Road, journeying alongside Dorothy, the Scarecrow, the Tin Man and the Lion. Encounter fields of poppies, mischievous crows, flying monkeys, the Wicked Witch and the dazzling Emerald City &mdash; all beautifully realised by the talented Dandelion dancers.</p>
-    <p>This 2026 showcase is a joyful celebration of colour, music and imagination, capturing the courage to dream and the magic of storytelling through movement.</p>
+  <section id="schedule" class="tab-content" role="tabpanel">
+    <h2>Schedule</h2>
+    <p class="muted">Four key dates between now and curtain up. Detail is filled in by the studio &mdash; check back as the show date gets closer.</p>
 
-    <h3>Who you&rsquo;ll meet</h3>
-    <ul class="cast-grid">
-      <li>Dorothy</li>
-      <li>The Scarecrow</li>
-      <li>The Tin Man</li>
-      <li>The Cowardly Lion</li>
-      <li>Munchkins</li>
-      <li>The Poppy Field</li>
-      <li>Mischievous Crows</li>
-      <li>Flying Monkeys</li>
-      <li>The Wicked Witch</li>
-      <li>The Emerald City</li>
+    <ul class="shift-list">
+      <li class="shift-item">
+        <div class="shift-when">
+          <span class="shift-date">Fri 1 May 2026</span>
+          <span class="shift-time">Rehearsal &middot; time TBC</span>
+        </div>
+        <div class="shift-body">
+          <p class="shift-note">Notes from the studio: <span class="placeholder">call time, what to wear, what to bring &mdash; TBC</span></p>
+        </div>
+      </li>
+      <li class="shift-item">
+        <div class="shift-when">
+          <span class="shift-date">Sat 9 May 2026</span>
+          <span class="shift-time">Dress rehearsal &middot; time TBC</span>
+        </div>
+        <div class="shift-body">
+          <p class="shift-note">Notes from the studio: <span class="placeholder">call time, full costume, hair &amp; makeup &mdash; TBC</span></p>
+        </div>
+      </li>
+      <li class="shift-item">
+        <div class="shift-when">
+          <span class="shift-date">Sat 16 May 2026</span>
+          <span class="shift-time">Show &mdash; Performance 1 &middot; 12:00</span>
+        </div>
+        <div class="shift-body">
+          <p class="shift-note">Notes from the studio: <span class="placeholder">call time, drop-off arrangements, after-show pickup &mdash; TBC</span></p>
+        </div>
+      </li>
+      <li class="shift-item">
+        <div class="shift-when">
+          <span class="shift-date">Sat 16 May 2026</span>
+          <span class="shift-time">Show &mdash; Performance 2 &middot; 15:00</span>
+        </div>
+        <div class="shift-body">
+          <p class="shift-note">Notes from the studio: <span class="placeholder">call time, between-show meal, after-show pickup &mdash; TBC</span></p>
+        </div>
+      </li>
     </ul>
 
-    <p class="closing">Click your heels and join us &mdash; there&rsquo;s no place like The Playhouse.</p>
-    <p class="muted">Read more on the <a href="https://playhousecompany.com/2026/04/22/the-enchanted-world-of-oz/" target="_blank" rel="noopener">Playhouse Company</a> website.</p>
+    <p class="venue-note"><strong>Venue:</strong> Playhouse Drama Theatre, 231 Anton Lembede Street, Durban.</p>
   </section>
 
-  <section id="tickets" class="tab-content" role="tabpanel">
-    <h2>Tickets</h2>
-    <div class="price-card">
-      <span class="price-amount">R190</span>
-      <span class="price-label">per ticket</span>
+  <section id="volunteers" class="tab-content" role="tabpanel">
+    <h2>Volunteers</h2>
+    <p>We&rsquo;d love a hand from the moms across rehearsals and show day &mdash; backstage chaperones, costume help, front-of-house and welcome desk. Pick a shift below and pop your name in the form.</p>
+
+    <p class="cta-row">
+      <a class="cta-buy" href="#TODO-volunteer-form" target="_blank" rel="noopener">Sign up to volunteer &rsaquo;</a>
+    </p>
+    <p class="muted">One form covers all four shifts &mdash; you can pick which one(s) you&rsquo;d like to help with.</p>
+
+    <ul class="shift-list">
+      <li class="shift-item">
+        <div class="shift-when">
+          <span class="shift-date">Fri 1 May 2026</span>
+          <span class="shift-time">Rehearsal &middot; time TBC</span>
+        </div>
+        <div class="shift-body">
+          <p class="shift-note">Helpers needed: <span class="placeholder">TBC</span></p>
+          <a class="cta-buy small" href="#TODO-volunteer-form" target="_blank" rel="noopener">Sign up</a>
+        </div>
+      </li>
+      <li class="shift-item">
+        <div class="shift-when">
+          <span class="shift-date">Sat 9 May 2026</span>
+          <span class="shift-time">Dress rehearsal &middot; time TBC</span>
+        </div>
+        <div class="shift-body">
+          <p class="shift-note">Helpers needed: <span class="placeholder">TBC</span></p>
+          <a class="cta-buy small" href="#TODO-volunteer-form" target="_blank" rel="noopener">Sign up</a>
+        </div>
+      </li>
+      <li class="shift-item">
+        <div class="shift-when">
+          <span class="shift-date">Sat 16 May 2026</span>
+          <span class="shift-time">Show 1 &middot; 12:00</span>
+        </div>
+        <div class="shift-body">
+          <p class="shift-note">Helpers needed: <span class="placeholder">backstage, FOH, welcome desk &mdash; TBC</span></p>
+          <a class="cta-buy small" href="#TODO-volunteer-form" target="_blank" rel="noopener">Sign up</a>
+        </div>
+      </li>
+      <li class="shift-item">
+        <div class="shift-when">
+          <span class="shift-date">Sat 16 May 2026</span>
+          <span class="shift-time">Show 2 &middot; 15:00</span>
+        </div>
+        <div class="shift-body">
+          <p class="shift-note">Helpers needed: <span class="placeholder">backstage, FOH, welcome desk &mdash; TBC</span></p>
+          <a class="cta-buy small" href="#TODO-volunteer-form" target="_blank" rel="noopener">Sign up</a>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="orders" class="tab-content" role="tabpanel">
+    <h2>Orders</h2>
+    <p>Three quick forms to get sorted before showtime.</p>
+
+    <div class="order-grid">
+      <article class="order-card">
+        <h3>Show shirt</h3>
+        <p>Order your dancer&rsquo;s commemorative <em>Enchanted World of Oz</em> shirt &mdash; size and quantity in the form.</p>
+        <a class="cta-buy" href="#TODO-shirt-order-form" target="_blank" rel="noopener">Order shirts &rsaquo;</a>
+      </article>
+      <article class="order-card">
+        <h3>Studio leotard</h3>
+        <p>Replace or add to your dancer&rsquo;s studio leotards &mdash; size, colour and quantity in the form.</p>
+        <a class="cta-buy" href="#TODO-leotard-order-form" target="_blank" rel="noopener">Order leotards &rsaquo;</a>
+      </article>
+      <article class="order-card">
+        <h3>Name spelling</h3>
+        <p>Make sure your dancer&rsquo;s name is spelt correctly in the printed program. One quick check.</p>
+        <a class="cta-buy" href="#TODO-name-spelling-form" target="_blank" rel="noopener">Check spelling &rsaquo;</a>
+      </article>
     </div>
 
-    <h3>Showtimes</h3>
-    <ul class="showtime-list">
-      <li>
-        <time datetime="2026-05-16T12:00">Saturday 16 May 2026 &middot; 12:00</time>
-        <a class="cta-buy small" href="https://www.webtickets.co.za/v2/event.aspx?itemid=1593575348" target="_blank" rel="noopener">Buy Tickets</a>
-      </li>
-      <li>
-        <time datetime="2026-05-16T15:00">Saturday 16 May 2026 &middot; 15:00</time>
-        <a class="cta-buy small" href="https://www.webtickets.co.za/v2/event.aspx?itemid=1593575348" target="_blank" rel="noopener">Buy Tickets</a>
-      </li>
-    </ul>
+    <p class="muted">Can&rsquo;t access a form? <a href="#contact">Contact us directly</a> and we&rsquo;ll sort it.</p>
+  </section>
 
-    <h3>Where to buy</h3>
-    <p>Tickets are sold through <a href="https://www.webtickets.co.za/v2/event.aspx?itemid=1593575348" target="_blank" rel="noopener">Webtickets</a>, with collection and walk-in purchase available at any <strong>Pick n Pay</strong> store nationwide.</p>
+  <section id="contact" class="tab-content" role="tabpanel">
+    <h2>Contact</h2>
+    <p>Questions about rehearsals, costumes, orders, or anything else &mdash; reach out any time.</p>
 
-    <h3>Venue</h3>
-    <p><strong>Playhouse Drama Theatre</strong><br>231 Anton Lembede Street, Durban</p>
+    <div class="contact-card">
+      <dl>
+        <div>
+          <dt>Studio</dt>
+          <dd>Dandelion Studio of Dance</dd>
+        </div>
+        <div>
+          <dt>Contact</dt>
+          <dd class="placeholder">#TODO-contact-name</dd>
+        </div>
+        <div>
+          <dt>WhatsApp</dt>
+          <dd><a href="#TODO-whatsapp-link" class="placeholder">#TODO-whatsapp-number</a></dd>
+        </div>
+        <div>
+          <dt>Email</dt>
+          <dd><a href="#TODO-email-mailto" class="placeholder">#TODO-email-address</a></dd>
+        </div>
+        <div>
+          <dt>Facebook</dt>
+          <dd><a href="https://web.facebook.com/p/Dandelion-Studio-of-Dance-61563399494901/" target="_blank" rel="noopener">Dandelion Studio of Dance</a></dd>
+        </div>
+      </dl>
+    </div>
   </section>
 
   <section id="studio" class="tab-content" role="tabpanel">

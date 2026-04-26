@@ -7,7 +7,7 @@
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
   const SHOW_DATETIME = new Date('2026-05-16T12:00:00+02:00');
-  const TABS = ['home', 'show', 'tickets', 'studio', 'gallery'];
+  const TABS = ['home', 'schedule', 'volunteers', 'orders', 'contact', 'studio', 'gallery'];
 
   // -------- CSV parser --------
   function parseCSV(text) {
@@ -196,6 +196,9 @@
   function wireNav() {
     $$('.tab-btn').forEach(b => {
       b.addEventListener('click', () => switchTab(b.dataset.tab));
+    });
+    $$('.home-tile').forEach(t => {
+      t.addEventListener('click', () => switchTab(t.dataset.go));
     });
     $('.logo')?.addEventListener('click', e => { e.preventDefault(); switchTab('home'); });
     window.addEventListener('hashchange', () => switchTab(location.hash.slice(1)));

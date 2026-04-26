@@ -1,14 +1,40 @@
-# The Enchanted World of Oz — Show Website
+# The Enchanted World of Oz — Dance-Mom Logistics Hub
 
-A small static site for Dandelion Studio of Dance's 2026 ballet showcase, **The Enchanted World of Oz**, performed Saturday 16 May 2026 at the Playhouse Drama Theatre, Durban. Single-page site with tab navigation. Hosted on GitHub Pages — no build step, no frameworks.
+A small static site for the Dandelion Studio of Dance moms preparing for the 2026 ballet showcase, **The Enchanted World of Oz** (Saturday 16 May 2026, Playhouse Drama Theatre, Durban). One place for the schedule, volunteer signup, shirt &amp; leotard orders, and studio contact details. Single-page site with tab navigation, hosted on GitHub Pages — no build step, no frameworks.
 
 ## Site contents
 
-- **Home** — show poster, key info (date, time, venue, price), countdown to curtain, Buy Tickets call-to-action.
-- **The Show** — synopsis and the characters audiences will meet.
-- **Tickets** — price, both showtimes (12:00 and 15:00) and where to buy.
-- **Studio** — about Dandelion Studio of Dance with Facebook link.
+- **Home** — welcome, countdown to curtain, and four shortcut tiles (Schedule, Volunteer, Orders, Contact).
+- **Schedule** — the four key dates: 1 May rehearsal, 9 May dress rehearsal, 16 May 12:00 and 15:00 performances, with notes per shift.
+- **Volunteers** — same shifts, each with a "Sign up" button linking to a Google Form.
+- **Orders** — three Google-Form links: show shirt order, studio leotard order, name-spelling check for the printed program.
+- **Contact** — studio name, contact name, WhatsApp, email, Facebook.
+- **Studio** — short About paragraph and Facebook link.
 - **Gallery** — hidden until the first photo is added (see below).
+
+## Filling in the Google Forms (and contact details)
+
+Form URLs and contact details are stored as `#TODO-…` placeholders so it's clear at a glance what's still missing. To list every outstanding placeholder:
+
+```bash
+grep -n '#TODO-' index.html
+```
+
+Each match shows the line number and the placeholder name. Replace with the real URL / number / address via search-and-replace, then commit + push — the GitHub Pages workflow auto-deploys within ~60 s.
+
+The placeholders currently in use:
+
+| Placeholder | What goes there |
+|---|---|
+| `#TODO-volunteer-form` | Google Form URL for volunteer signup (one form covering all four shifts) |
+| `#TODO-shirt-order-form` | Google Form URL for show-shirt orders |
+| `#TODO-leotard-order-form` | Google Form URL for studio-leotard orders |
+| `#TODO-name-spelling-form` | Google Form URL for program name-spelling check |
+| `#TODO-contact-name` | Studio contact person's name |
+| `#TODO-whatsapp-link` | `https://wa.me/27...` link target |
+| `#TODO-whatsapp-number` | Display version of the WhatsApp number |
+| `#TODO-email-mailto` | `mailto:address@example.com` link target |
+| `#TODO-email-address` | Display version of the email address |
 
 ## Adding photos after the show
 
@@ -76,13 +102,13 @@ git push
 
 ```
 ballet-web/
-├── index.html           # Page markup (hero, tab nav, four panels + gallery, lightbox)
+├── index.html           # Page markup (hero, tab nav, six panels + hidden gallery, lightbox)
 ├── styles.css           # Emerald + gold on cream, mobile-first
 ├── app.js               # Tabs, countdown, lightbox, photos CSV loader
 ├── data/
 │   └── photos.csv       # Header-only at launch; rows un-hide the Gallery tab
 ├── images/
-│   ├── poster.jpg       # Show advert (used on Home)
+│   ├── poster.jpg       # Show advert (kept on disk; not currently shown on the mom-facing site)
 │   ├── logo.png         # Show logo (extracted from ShirtLogo_BLACK.pdf)
 │   ├── favicon.ico
 │   ├── favicon-32.png
