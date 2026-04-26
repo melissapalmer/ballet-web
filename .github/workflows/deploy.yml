@@ -2,7 +2,7 @@ name: Deploy site to GitHub Pages
 
 on:
   push:
-    branches: [main, f/moms-logistics]
+    branches: [f/moms-logistics]
   workflow_dispatch:
 
 permissions:
