@@ -1,0 +1,8 @@
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.claude/
+
+# Original advert filename — kept local for reference; site uses images/poster.jpg
+678688334_122191206602446649_2535474330929728094_n.jpg
