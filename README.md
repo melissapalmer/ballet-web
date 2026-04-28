@@ -8,7 +8,7 @@ A small static site for the Dandelion Studio of Dance moms preparing for the 202
 - **Schedule** — four key dates: 1 May rehearsal (OLF), 9 May rehearsal (OLF), 15 May stage rehearsal (Playhouse), 16 May show day (12:00 + 15:00 performances) with venue, arrival/collection times and the backstage rule.
 - **Volunteers** — same shifts, each showing the confirmed roster (signups are closed; rosters are added per shift as the studio shares them).
 - **Orders** — show shirt (form + **live order list** from a published Google Sheet CSV), show photos (Tantalising Twins on Pixieset), show video (AngelMedia, cash + paper slip). Name-spelling is closed and handled internally by the studio — no card needed.
-- **Contact** — studio name, contact name, WhatsApp, email, Facebook.
+- **Contact** — two cards: Bron (show outfit / shirt costs) and Louise (rehearsals); plus a signpost to the Studio tab / Facebook for general queries.
 - **Studio** — short About paragraph, Facebook link, and a note about year-round studio leotards.
 
 ## Filling in the Google Forms (and contact details)
@@ -25,11 +25,14 @@ The placeholders currently in use:
 
 | Placeholder | What goes there |
 |---|---|
-| `#TODO-contact-name` | Studio contact person's name |
-| `#TODO-whatsapp-link` | `https://wa.me/27...` link target |
-| `#TODO-whatsapp-number` | Display version of the WhatsApp number |
-| `#TODO-email-mailto` | `mailto:address@example.com` link target |
-| `#TODO-email-address` | Display version of the email address |
+| `#TODO-bron-whatsapp-link` | `https://wa.me/27...` link for Bron |
+| `#TODO-bron-whatsapp-number` | Display version of Bron's WhatsApp number |
+| `#TODO-bron-email-mailto` | `mailto:bron@…` link |
+| `#TODO-bron-email-address` | Display version of Bron's email |
+| `#TODO-louise-whatsapp-link` | `https://wa.me/27...` link for Louise |
+| `#TODO-louise-whatsapp-number` | Display version of Louise's WhatsApp number |
+| `#TODO-louise-email-mailto` | `mailto:louise@…` link |
+| `#TODO-louise-email-address` | Display version of Louise's email |
 
 ### Adding a volunteer roster
 
