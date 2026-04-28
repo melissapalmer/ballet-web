@@ -475,6 +475,26 @@ h3 {
   font-size: 0.92rem;
 }
 .order-card .muted a { color: var(--accent-deep); }
+.order-card .pricing-image {
+  display: block;
+  align-self: flex-start;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--gold-border);
+  background: var(--bg-card);
+  box-shadow: var(--shadow);
+  max-width: 720px;
+  margin-top: 0.4rem;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.order-card .pricing-image:hover,
+.order-card .pricing-image:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(201, 162, 39, 0.22);
+  outline: none;
+}
+.order-card .pricing-image img { width: 100%; height: auto; display: block; }
+.order-card .pricing-image + .muted { margin: 0.35rem 0 0; font-size: 0.85rem; }
 .order-card h4 {
   font-family: 'Inter', sans-serif;
   font-size: 0.78rem;
