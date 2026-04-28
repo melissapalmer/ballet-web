@@ -19,7 +19,7 @@
 
 body {
   margin: 0;
-  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', sans-serif;
   font-size: 16px;
   line-height: 1.6;
   color: var(--text);
@@ -457,7 +457,11 @@ h3 {
   font-style: italic;
 }
 
-.volunteer-roster { align-self: stretch; }
+.dynamic-roster { align-self: stretch; }
+.emoji {
+  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'Segoe UI Symbol', 'EmojiOne Color', sans-serif;
+  font-style: normal;
+}
 @media (min-width: 600px) {
   .roster-row {
     grid-template-columns: minmax(180px, 260px) 1fr;

@@ -9,10 +9,51 @@
   const SHOW_DATETIME = new Date('2026-05-16T12:00:00+02:00');
   const TABS = ['home', 'schedule', 'volunteers', 'orders', 'contact', 'studio'];
   const SHIRT_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtuO_Pqn9sGLxePT51BqIr72aWzzTqjFlskuDs62Pjlj4zSDUJtI012A4LuWn3C1UsyD1X6z6vl75e/pub?output=csv';
-  const VOLUNTEER_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTsTQ7jHG6shlT7d1Lnka3w2x8BfSde7vAvSM6zkWaSmN3VI11rcGdpwQiFjCyIBeNvkyIG08veZm7E/pub?output=csv';
+  // Base URL for the studio's published Backstage Mums sheet. Each shift can
+  // add `&gid=…` for its specific tab via a `data-gid` attribute on the
+  // `.dynamic-roster` container; missing tabs fall back to "Roster being
+  // finalised".
+  const VOLUNTEER_CSV_BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTsTQ7jHG6shlT7d1Lnka3w2x8BfSde7vAvSM6zkWaSmN3VI11rcGdpwQiFjCyIBeNvkyIG08veZm7E/pub?output=csv';
 
-  // Emojis applied per group when rendering the volunteer roster — keyed by the
-  // exact "Group" value in the studio's sheet. Unknown groups fall back to 🎭.
+  // Pick the right emoji from the dance Character column — first regex match
+  // wins. Order from most-specific (named WoO characters) to most-general
+  // (theme/role keywords). Add new rules here when the studio names new
+  // characters in the sheet.
+  const CHARACTER_EMOJI_RULES = [
+    // Wizard of Oz characters first
+    [/\bdorothy\b/i, '👧'],
+    [/\bscarecrow\b/i, '🌾'],
+    [/\btin.?man\b/i, '🤖'],
+    [/\blion\b/i, '🦁'],
+    [/\bwizard\b/i, '🧙'],
+    [/\bwitch\b/i, '🧙‍♀️'],
+    [/\btoto\b/i, '🐶'],
+    [/\bmunchkin/i, '🎈'],
+    [/\bemerald\b/i, '💚'],
+    [/\bcrow/i, '🐦‍⬛'],
+    [/\bmonkey/i, '🐒'],
+    [/\byellow.?brick/i, '🟡'],
+    // Themed dance numbers
+    [/butterf/i, '🦋'],
+    [/snowflake/i, '❄️'],
+    [/popp?ies?/i, '🌹'],
+    [/forest/i, '🌳'],
+    [/tornado/i, '🌪️'],
+    [/(farm.+rainbow|rainbow.+farm)/i, '🌈'],
+    [/rainbow/i, '🌈'],
+    [/farm/i, '🐮'],
+    [/survivor/i, '🏝️'],
+    // Dance styles
+    [/hip.?hop/i, '🎤'],
+    [/jazz/i, '🎷'],
+    [/contemp/i, '💃'],
+    [/ballet/i, '🩰'],
+    // Backstage roles
+    [/timing/i, '⏱️'],
+    [/runner/i, '🏃'],
+  ];
+
+  // Group-name fallback when the Character column has nothing matchable.
   const VOLUNTEER_GROUP_EMOJI = {
     'Pre-Primary + Primary': '🌟',
     'Test 1': '🦋',
@@ -24,9 +65,18 @@
     'Contemp Gr 3-4': '💃',
     'Contemp Gr 5-6': '🎶',
     'Special - Toto': '🐶',
-    'Special - Crows': '🦅',
+    'Special - Crows': '🐦‍⬛',
     'Special - Timing': '⏱️',
   };
+
+  function emojiFor(character, groupName) {
+    if (character) {
+      for (const [pattern, emoji] of CHARACTER_EMOJI_RULES) {
+        if (pattern.test(character)) return emoji;
+      }
+    }
+    return VOLUNTEER_GROUP_EMOJI[groupName] || '🎭';
+  }
 
   // -------- CSV parser --------
   function parseCSV(text) {
@@ -145,13 +195,15 @@
   }
 
   // -------- Volunteers (live roster from published Google Sheet) --------
-  async function renderVolunteers() {
-    const target = $('#volunteer-roster');
-    if (!target) return;
-
-    const rows = await loadCSV(VOLUNTEER_CSV_URL);
-    if (!rows || !rows.length) {
+  async function renderRosterInto(target, gid) {
+    const url = `${VOLUNTEER_CSV_BASE}&gid=${encodeURIComponent(gid)}&single=true`;
+    const rows = await loadCSV(url);
+    if (!rows) {
       target.innerHTML = `<p class="muted">Couldn&rsquo;t load the roster right now &mdash; try refreshing in a moment.</p>`;
+      return;
+    }
+    if (!rows.length) {
+      target.innerHTML = `<p class="muted roster-pending">Roster being finalised &mdash; check back closer to the date.</p>`;
       return;
     }
 
@@ -174,7 +226,7 @@
     });
 
     if (!groups.size) {
-      target.innerHTML = `<p class="muted">Roster is empty.</p>`;
+      target.innerHTML = `<p class="muted roster-pending">Roster being finalised &mdash; check back closer to the date.</p>`;
       return;
     }
 
@@ -192,12 +244,12 @@
     `;
 
     const renderRow = g => {
-      const emoji = VOLUNTEER_GROUP_EMOJI[g.name] || '🎭';
+      const emoji = emojiFor(g.character, g.name);
       const cleanName = g.name.replace(/^Special - /, '');
       return `
         <div class="roster-row">
           <dt class="roster-group">
-            <span class="roster-group-name">${emoji} ${escapeHtml(cleanName)}</span>
+            <span class="roster-group-name"><span class="emoji">${emoji}</span> ${escapeHtml(cleanName)}</span>
             ${g.character ? `<span class="roster-character">${escapeHtml(g.character)}</span>` : ''}
           </dt>
           <dd class="roster-names">${g.pairs.map(renderPair).join('')}</dd>
@@ -215,6 +267,14 @@
         <dl class="roster-list">${generalGroups.map(renderRow).join('')}</dl>
       ` : ''}
     `;
+  }
+
+  function renderVolunteers() {
+    $$('.dynamic-roster').forEach(target => {
+      const gid = target.dataset.gid;
+      if (!gid) return;
+      renderRosterInto(target, gid);
+    });
   }
 
   // -------- Tabs --------
