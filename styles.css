@@ -458,7 +458,13 @@ h3 {
 }
 
 .dynamic-roster { align-self: stretch; }
-.shift-panel { padding: 0.4rem 0 0; }
+.shift-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 12px;
+  padding: 0.9rem 1.1rem;
+}
 .shift-panel > .shift-when { margin-bottom: 0.65rem; }
 img.emoji {
   display: inline-block;
