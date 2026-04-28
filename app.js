@@ -330,7 +330,11 @@
           : `<li class="info-line">${value}</li>`;
       }).join('');
       const heading = s.heading ? `<h3>${fmt(cleanHeading(s.heading))}</h3>` : '';
-      return `<article class="shift-panel info-panel">${heading}<ul class="info-list">${items}</ul></article>`;
+      // Reminder cards get extra gold emphasis — these are the "must-read"
+      // notes the studio flags (e.g. "dancers stay backstage for BOTH shows").
+      const isReminder = /^reminder\b/i.test(s.heading || '');
+      const cls = isReminder ? 'shift-panel info-panel info-panel-reminder' : 'shift-panel info-panel';
+      return `<article class="${cls}">${heading}<ul class="info-list">${items}</ul></article>`;
     }).join('');
   }
 

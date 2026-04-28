@@ -483,6 +483,24 @@ h3 {
   gap: 0.45rem;
 }
 .info-list li::marker { color: var(--accent); }
+
+/* "Reminder" cards from the studio — gold treatment for the must-read notes */
+.info-panel-reminder {
+  background: linear-gradient(135deg, rgba(201, 162, 39, 0.16) 0%, rgba(201, 162, 39, 0.06) 100%);
+  border: 1px solid var(--gold);
+  border-left: 4px solid var(--gold);
+  box-shadow: 0 6px 22px rgba(201, 162, 39, 0.22);
+}
+.info-panel-reminder > h3 {
+  color: var(--gold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+}
+.info-panel-reminder .info-list li::marker { color: var(--gold); }
+.info-panel-reminder .info-line strong { color: var(--gold); }
 .info-intro {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-style: italic;
