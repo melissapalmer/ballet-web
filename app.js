@@ -267,10 +267,14 @@
     }
 
     const isEmojiHeading = s => /^\p{Extended_Pictographic}/u.test(s);
-    // Treat any col A that starts with "Intro" (case-insensitive) as a special
-    // preamble section — renders as a styled sub-heading above the cards
-    // rather than as its own card.
-    const isIntroLabel = s => /^intro\b/i.test(s);
+    // Strip a leading emoji (and the space after it) before pattern-matching
+    // so the studio can prefix labels without breaking detection. e.g.
+    // "⛔ Reminder" → "Reminder", "💇‍♀️ Hair" → "Hair".
+    const headingText = h => (h || '').replace(/^\p{Extended_Pictographic}+\s*/u, '').trim();
+    // Treat any col A that starts with "Intro" (case-insensitive, optionally
+    // emoji-prefixed) as a special preamble section.
+    const isIntroLabel = s => /^intro\b/i.test(headingText(s));
+    const isReminderLabel = s => /^reminder\b/i.test(headingText(s));
     const cleanHeading = h => h.replace(/[:：]\s*$/, '');
     const fmt = s => escapeHtml(s).replace(/\n/g, '<br>');
 
@@ -332,8 +336,8 @@
       const heading = s.heading ? `<h3>${fmt(cleanHeading(s.heading))}</h3>` : '';
       // Reminder cards get extra gold emphasis — these are the "must-read"
       // notes the studio flags (e.g. "dancers stay backstage for BOTH shows").
-      const isReminder = /^reminder\b/i.test(s.heading || '');
-      const cls = isReminder ? 'shift-panel info-panel info-panel-reminder' : 'shift-panel info-panel';
+      // Detection is emoji-tolerant via headingText() so "⛔ Reminder" matches.
+      const cls = isReminderLabel(s.heading) ? 'shift-panel info-panel info-panel-reminder' : 'shift-panel info-panel';
       return `<article class="${cls}">${heading}<ul class="info-list">${items}</ul></article>`;
     }).join('');
   }
