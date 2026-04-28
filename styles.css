@@ -504,6 +504,13 @@ h3 {
   align-self: flex-start;
   margin: 0.2rem 0 0.4rem;
 }
+.studio-logo {
+  max-width: 280px;
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0.5rem 0 1rem;
+}
 .order-card h4 {
   font-family: 'Inter', sans-serif;
   font-size: 0.78rem;
