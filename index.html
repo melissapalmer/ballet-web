@@ -1,351 +1,693 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#1f8a4c">
-  <title>Dance Moms &middot; The Enchanted World of Oz</title>
-  <meta name="description" content="Logistics hub for Dandelion Studio of Dance moms — schedule, volunteer shifts, show orders, and contact details for The Enchanted World of Oz.">
-  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
-  <link rel="icon" href="images/favicon.ico">
-  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=__VERSION__">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#1f8a4c" />
+    <title>Dance Moms &middot; The Enchanted World of Oz</title>
+    <meta
+      name="description"
+      content="Logistics hub for Dandelion Studio of Dance moms — schedule, volunteer shifts, show orders, and contact details for The Enchanted World of Oz."
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="images/favicon-32.png"
+    />
+    <link rel="icon" href="images/favicon.ico" />
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=__VERSION__" />
 
-  <!-- Google Analytics 4 — see CLAUDE.md for the property and how SPA pageviews are tracked. -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GP77MVX97V"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    // send_page_view:false — switchTab() in app.js fires a manual page_view per
-    // tab so each tab counts separately in Reports → Pages and screens.
-    gtag('config', 'G-GP77MVX97V', { send_page_view: false });
-  </script>
-</head>
-<body>
-
-<header class="hero">
-  <a class="logo" href="#home" aria-label="The Enchanted World of Oz home">
-    <img src="images/logo.png" alt="The Enchanted World of Oz">
-  </a>
-  <div class="hero-text">
-    <p class="presents">Dance moms hub</p>
-    <h1 class="show-name">The Enchanted World of Oz</h1>
-    <p class="tagline">Schedule, volunteers and orders for our 2026 showcase.</p>
-  </div>
-</header>
-
-<input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
-<nav class="nav" aria-label="Primary">
-  <label for="nav-toggle" class="nav-burger" aria-label="Open menu">
-    <span></span><span></span><span></span>
-  </label>
-  <div class="nav-list" role="tablist">
-    <button class="tab-btn active" role="tab" data-tab="home" aria-selected="true">Home</button>
-    <button class="tab-btn" role="tab" data-tab="schedule" aria-selected="false">Schedule</button>
-    <button class="tab-btn" role="tab" data-tab="info" aria-selected="false">Info</button>
-    <button class="tab-btn" role="tab" data-tab="volunteers" aria-selected="false">Volunteers</button>
-    <button class="tab-btn" role="tab" data-tab="orders" aria-selected="false">Orders</button>
-    <button class="tab-btn" role="tab" data-tab="contact" aria-selected="false">Contact</button>
-    <button class="tab-btn" role="tab" data-tab="studio" aria-selected="false">Studio</button>
-  </div>
-</nav>
-
-<main>
-
-  <section id="home" class="tab-content active" role="tabpanel">
-    <p class="welcome">Welcome dance moms &mdash; everything you need for <em>The Enchanted World of Oz</em> in one place. Rehearsal times, volunteer signup, show shirt / photos / video orders, and how to reach us.</p>
-
-    <div class="countdown-card" id="countdown-card">
-      <span class="countdown-label">Curtain up at the <strong>12:00</strong> show in</span>
-      <span class="countdown-value" id="countdown">&mdash;</span>
-    </div>
-
-    <h3>What can I help with?</h3>
-    <div class="home-tiles">
-      <button type="button" class="home-tile" data-go="schedule">
-        <span class="home-tile-title">Schedule</span>
-        <span class="home-tile-sub">Rehearsal &amp; show times</span>
-      </button>
-      <button type="button" class="home-tile" data-go="volunteers">
-        <span class="home-tile-title">Volunteers</span>
-        <span class="home-tile-sub">Check your shift time</span>
-      </button>
-      <button type="button" class="home-tile" data-go="orders">
-        <span class="home-tile-title">Orders</span>
-        <span class="home-tile-sub">Shirts, photos, video</span>
-      </button>
-      <button type="button" class="home-tile" data-go="contact">
-        <span class="home-tile-title">Contact</span>
-        <span class="home-tile-sub">Questions? Reach us here</span>
-      </button>
-    </div>
-  </section>
-
-  <section id="schedule" class="tab-content" role="tabpanel">
-    <h2>Schedule</h2>
-    <p class="muted">Four key dates between now and curtain up.</p>
-
-    <ul class="shift-list">
-      <li class="shift-item">
-        <div class="shift-when">
-          <span class="shift-date">Fri 1 May 2026</span>
-          <span class="shift-time">Rehearsal &middot; 08:45 &ndash; 13:00</span>
-        </div>
-        <div class="shift-body">
-          <p class="shift-note"><strong>OLF school hall.</strong> Normal ballet outfits. Send snacks, water and a blanket. Moms on duty will look after the girls.</p>
-        </div>
-      </li>
-      <li class="shift-item">
-        <div class="shift-when">
-          <span class="shift-date">Sat 9 May 2026</span>
-          <span class="shift-time">Rehearsal &middot; 08:45 &ndash; 13:30</span>
-        </div>
-        <div class="shift-body">
-          <p class="shift-note"><strong>OLF school hall.</strong> Same drill as 1 May &mdash; ballet outfits, snacks, water, blanket.</p>
-        </div>
-      </li>
-      <li class="shift-item">
-        <div class="shift-when">
-          <span class="shift-date">Fri 15 May 2026</span>
-          <span class="shift-time">Stage rehearsal &middot; sign in 13:00</span>
-        </div>
-        <div class="shift-body">
-          <p class="shift-note"><strong>Playhouse stage door.</strong> All dancers in normal ballet outfits. Sign in at 13:00 &mdash; moms take dancers to the dressing rooms. Collection times will be shared closer to the date.</p>
-        </div>
-      </li>
-      <li class="shift-item">
-        <div class="shift-when">
-          <span class="shift-date">Sat 16 May 2026</span>
-          <span class="shift-time">Show day &middot; 12:00 &amp; 15:00 performances</span>
-        </div>
-        <div class="shift-body">
-          <p class="shift-note"><strong>Playhouse stage door.</strong> Arrive 09:30, sign in &mdash; moms take dancers to the dressing rooms. Collection at the stage door after the 15:00 show, around 17:30.</p>
-          <p class="shift-note backstage-note"><strong>Backstage rule:</strong> only moms on the volunteer roster are allowed backstage on show day.</p>
-        </div>
-      </li>
-    </ul>
-
-    <p class="venue-note"><strong>Venues:</strong> rehearsals 1 &amp; 9 May at OLF school hall &middot; 15 &amp; 16 May at the Playhouse Drama Theatre, 231 Anton Lembede Street, Durban.</p>
-  </section>
-
-  <section id="info" class="tab-content" role="tabpanel">
-    <h2>Show info</h2>
-    <p>What dancers need to wear, bring, and where to go on the day. The studio will fill these in as we get closer to the show.</p>
-
-    <article class="shift-panel info-panel">
-      <h3>What to wear</h3>
-      <p class="muted roster-pending">Costume + accessory details &mdash; coming from the studio.</p>
-    </article>
-
-    <article class="shift-panel info-panel">
-      <h3>Hair</h3>
-      <p class="muted roster-pending">Hairstyle + accessories brief &mdash; coming from the studio.</p>
-    </article>
-
-    <article class="shift-panel info-panel">
-      <h3>Makeup</h3>
-      <p class="muted roster-pending">Makeup brief &mdash; coming from the studio.</p>
-    </article>
-
-    <article class="shift-panel info-panel">
-      <h3>What to bring</h3>
-      <p class="muted roster-pending">Snacks, water, blanket, change of clothes&hellip; full kit list coming from the studio.</p>
-    </article>
-
-    <article class="shift-panel info-panel">
-      <h3>Where to find the stage door</h3>
-      <p>The Playhouse stage door is at <strong>36 Acutt Street, Durban Central</strong> &mdash; round the side from the main public entrance on Anton Lembede Street. All dancers and helpers sign in here.</p>
-
-      <div class="stage-door-map">
-        <iframe src="https://www.google.com/maps?q=-29.859729,31.0269267&amp;z=17&amp;output=embed"
-                title="Playhouse Theatre stage door &mdash; 36 Acutt Street, Durban"
-                loading="lazy"></iframe>
-      </div>
-      <p>
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=-29.859729,31.0269267" target="_blank" rel="noopener">Open the pin in Google Maps</a>
-        &nbsp;&middot;&nbsp;
-        <a href="https://www.google.com/maps/@?api=1&amp;map_action=pano&amp;pano=nKYU1POestcAfs3vvIIEpw&amp;heading=99.7&amp;pitch=12.76&amp;fov=90" target="_blank" rel="noopener">Open in Street View</a>
-      </p>
-
-      <figure class="stage-door-photo">
-        <img src="images/stage-door-2.jpg" alt="Wide view down Acutt Street: red arrows show where Anton Lembede Street meets Acutt on the left, and the Playhouse stage-door entrance on the right." loading="lazy">
-        <figcaption>Looking down Acutt Street &mdash; Anton Lembede Street is on the left; the stage door is the entrance on the right.</figcaption>
-      </figure>
-      <figure class="stage-door-photo">
-        <img src="images/stage-door-1.jpg" alt="Close-up of the Playhouse stage-door entrance: recessed doorway with parents and dancers gathering near a red arrow marking the door." loading="lazy">
-        <figcaption>Close-up of the stage door &mdash; this is where you sign in.</figcaption>
-      </figure>
-    </article>
-  </section>
-
-  <section id="volunteers" class="tab-content" role="tabpanel">
-    <h2>Volunteers</h2>
-    <p>Volunteer signups are closed. Pick a shift below to see who&rsquo;s on duty.</p>
-
-    <div class="subtabs" role="tablist" aria-label="Volunteer shifts">
-      <button type="button" class="subtab-btn active" role="tab" data-subtab-target="1may" aria-selected="true">Fri 1 May</button>
-      <button type="button" class="subtab-btn" role="tab" data-subtab-target="9may" aria-selected="false">Sat 9 May</button>
-      <button type="button" class="subtab-btn" role="tab" data-subtab-target="15may" aria-selected="false">Fri 15 May</button>
-      <button type="button" class="subtab-btn" role="tab" data-subtab-target="16may" aria-selected="false">Sat 16 May</button>
-    </div>
-
-    <article class="subtab-content shift-panel active" data-subtab="1may" role="tabpanel">
-      <div class="shift-when">
-        <span class="shift-date">Fri 1 May 2026</span>
-        <span class="shift-time">Full run &middot; 08:45 at Dandelion (OLF)</span>
-      </div>
-      <div class="dynamic-roster" data-gid="1461728986" aria-live="polite">
-        <p class="muted">Loading roster&hellip;</p>
-      </div>
-    </article>
-
-    <article class="subtab-content shift-panel" data-subtab="9may" role="tabpanel">
-      <div class="shift-when">
-        <span class="shift-date">Sat 9 May 2026</span>
-        <span class="shift-time">Rehearsal &middot; 08:45 &ndash; 13:30 at Dandelion (OLF)</span>
-      </div>
-      <div class="dynamic-roster" data-gid="1682082248" aria-live="polite">
-        <p class="muted">Loading roster&hellip;</p>
-      </div>
-    </article>
-
-    <article class="subtab-content shift-panel" data-subtab="15may" role="tabpanel">
-      <div class="shift-when">
-        <span class="shift-date">Fri 15 May 2026</span>
-        <span class="shift-time">Stage rehearsal &middot; from 13:00 at the Playhouse</span>
-      </div>
-      <div class="dynamic-roster" data-gid="370629041" aria-live="polite">
-        <p class="muted">Loading roster&hellip;</p>
-      </div>
-    </article>
-
-    <article class="subtab-content shift-panel" data-subtab="16may" role="tabpanel">
-      <div class="shift-when">
-        <span class="shift-date">Sat 16 May 2026</span>
-        <span class="shift-time">Show day &middot; 09:30 &ndash; 17:30 at the Playhouse</span>
-      </div>
-      <p class="shift-note backstage-note"><strong>Heads up:</strong> only moms on the volunteer roster are allowed backstage.</p>
-      <div class="dynamic-roster" data-gid="419039550" aria-live="polite">
-        <p class="muted">Loading roster&hellip;</p>
-      </div>
-    </article>
-  </section>
-
-  <section id="orders" class="tab-content" role="tabpanel">
-    <h2>Orders</h2>
-
-    <div class="subtabs" role="tablist" aria-label="Orders sections">
-      <button type="button" class="subtab-btn active" role="tab" data-subtab-target="shirts" aria-selected="true">Show shirt</button>
-      <button type="button" class="subtab-btn" role="tab" data-subtab-target="photos" aria-selected="false">Show photos</button>
-      <button type="button" class="subtab-btn" role="tab" data-subtab-target="video" aria-selected="false">Show video</button>
-    </div>
-
-    <article class="order-card subtab-content active" data-subtab="shirts" role="tabpanel">
-      <h3>Show shirt</h3>
-      <img class="shirt-photo" src="images/t-shirt.jpg" alt="Black short-sleeve t-shirt with the gold &lsquo;The Enchanted World of Oz &middot; Dandelion Studio of Dance&rsquo; wordmark on the upper-right chest." loading="lazy">
-      <p>Commemorative <em>Enchanted World of Oz</em> shirt &mdash; <strong>R220&ndash;R240</strong> depending on size. Pay by EFT to <strong>Bronwyn Goble &middot; FNB 63085299725 &middot; branch 250655</strong>, ref: <em>Surname + Shirt</em>.</p>
-      <p class="cash-note"><strong>Orders are closed.</strong> Find your dancer&rsquo;s row below to confirm the size and check it shows <em>Paid</em> &mdash; if not, get the EFT through.</p>
-
-      <h4>Who&rsquo;s ordered</h4>
-      <div class="orders-list" id="shirt-orders-list" aria-live="polite">
-        <p class="muted">Loading the list&hellip;</p>
-      </div>
-    </article>
-
-    <article class="order-card subtab-content" data-subtab="photos" role="tabpanel">
-      <h3>Show photos</h3>
-      <p>Browse and order professional photos by <strong>Tantalising Twins</strong> &mdash; digital files, prints and canvases on Pixieset.</p>
-      <a class="cta-buy" href="https://tantalisingtwins.pixieset.com/dandeliondancestudiophotoshoot/" target="_blank" rel="noopener">Browse the gallery &rsaquo;</a>
-
-      <h4>Pricing</h4>
-      <a class="pricing-image" href="images/Photos-PrintingPriceList.jpeg" target="_blank" rel="noopener" title="Open the full pricing list">
-        <img src="images/Photos-PrintingPriceList.jpeg" alt="Tantalising Twins pricing — digital photos from R150; prints from R30 (4x6) up to R110 (12x18); premium canvases R850–R1900; budget canvases R350–R750." loading="lazy">
+    <!-- Google Analytics 4 — see CLAUDE.md for the property and how SPA pageviews are tracked. -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-GP77MVX97V"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      // send_page_view:false — switchTab() in app.js fires a manual page_view per
+      // tab so each tab counts separately in Reports → Pages and screens.
+      gtag("config", "G-GP77MVX97V", { send_page_view: false });
+    </script>
+  </head>
+  <body>
+    <header class="hero">
+      <a class="logo" href="#home" aria-label="The Enchanted World of Oz home">
+        <img src="images/logo.png" alt="The Enchanted World of Oz" />
       </a>
-      <p class="muted">Tap to open at full size.</p>
+      <div class="hero-text">
+        <p class="presents">Dance moms hub</p>
+        <h1 class="show-name">The Enchanted World of Oz</h1>
+        <p class="tagline">
+          Schedule, volunteers and orders for our 2026 showcase.
+        </p>
+      </div>
+    </header>
 
-      <h4>How to order</h4>
-      <a class="pricing-image" href="images/Photos-HowToOrder.png" target="_blank" rel="noopener" title="Open the ordering instructions full size">
-        <img src="images/Photos-HowToOrder.png" alt="Step-by-step Pixieset ordering instructions: open the gallery link, create a favourites list (the 'heart' icon), pick the photos you want, click the printer icon to order prints, pay by EFT using your full name as the reference. Prints take ~10 working days; delivery 4–6 weeks once order is placed." loading="lazy">
-      </a>
-      <p class="muted">Tap to open at full size.</p>
-    </article>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden />
+    <nav class="nav" aria-label="Primary">
+      <label for="nav-toggle" class="nav-burger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </label>
+      <div class="nav-list" role="tablist">
+        <button
+          class="tab-btn active"
+          role="tab"
+          data-tab="home"
+          aria-selected="true"
+        >
+          Home
+        </button>
+        <button
+          class="tab-btn"
+          role="tab"
+          data-tab="schedule"
+          aria-selected="false"
+        >
+          Schedule
+        </button>
+        <button
+          class="tab-btn"
+          role="tab"
+          data-tab="info"
+          aria-selected="false"
+        >
+          Important Info
+        </button>
+        <button
+          class="tab-btn"
+          role="tab"
+          data-tab="volunteers"
+          aria-selected="false"
+        >
+          Volunteers
+        </button>
+        <button
+          class="tab-btn"
+          role="tab"
+          data-tab="orders"
+          aria-selected="false"
+        >
+          Orders
+        </button>
+        <button
+          class="tab-btn"
+          role="tab"
+          data-tab="contact"
+          aria-selected="false"
+        >
+          Contact
+        </button>
+        <button
+          class="tab-btn"
+          role="tab"
+          data-tab="studio"
+          aria-selected="false"
+        >
+          Studio
+        </button>
+      </div>
+    </nav>
 
-    <article class="order-card subtab-content" data-subtab="video" role="tabpanel">
-      <h3>Show video</h3>
-      <p>Professional show video by <strong>AngelMedia</strong> &mdash; HD USB <strong>R250</strong> per show, or download link <strong>R140</strong> per show.</p>
-      <p class="cash-note"><strong>Cash only.</strong> Pop the order slip and cash in an envelope and return to Louise &mdash; no EFT.</p>
+    <main>
+      <section id="home" class="tab-content active" role="tabpanel">
+        <p class="welcome">
+          Welcome dance moms &mdash; everything you need for
+          <em>The Enchanted World of Oz</em> in one place. Rehearsal times,
+          volunteer signup, show shirt / photos / video orders, and how to reach
+          us.
+        </p>
 
-      <h4>Order slip</h4>
-      <a class="pricing-image" href="images/Video-OrderForm.jpeg" target="_blank" rel="noopener" title="Open the video order slip full size">
-        <img src="images/Video-OrderForm.jpeg" alt="AngelMedia video order return slip — fill in parent's name, child's name, contact number and email, tick the number of HD USBs (R250 each) or download links (R140 each) per show, total at the bottom. Return slip and cash in an envelope to Louise. Queries: Mark Whitlock 083 340 1390 / angelmedia@telkomsa.net" loading="lazy">
-      </a>
-      <p class="muted">Tap to open at full size for printing.</p>
+        <div class="countdown-card" id="countdown-card">
+          <span class="countdown-label"
+            >Curtain up at the <strong>12:00</strong> show in</span
+          >
+          <span class="countdown-value" id="countdown">&mdash;</span>
+        </div>
 
-      <p class="muted">Queries: Mark Whitlock &middot; <a href="tel:+27833401390">083 340 1390</a> &middot; <a href="mailto:angelmedia@telkomsa.net">angelmedia@telkomsa.net</a></p>
-    </article>
+        <h3>What can I help with?</h3>
+        <div class="home-tiles">
+          <button type="button" class="home-tile" data-go="schedule">
+            <span class="home-tile-title">Schedule</span>
+            <span class="home-tile-sub">Rehearsal &amp; show times</span>
+          </button>
+          <button type="button" class="home-tile" data-go="volunteers">
+            <span class="home-tile-title">Volunteers</span>
+            <span class="home-tile-sub">Check your shift time</span>
+          </button>
+          <button type="button" class="home-tile" data-go="orders">
+            <span class="home-tile-title">Orders</span>
+            <span class="home-tile-sub">Shirts, photos, video</span>
+          </button>
+          <button type="button" class="home-tile" data-go="contact">
+            <span class="home-tile-title">Contact</span>
+            <span class="home-tile-sub">Questions? Reach us here</span>
+          </button>
+        </div>
+      </section>
 
-    <p class="muted">Need help? <a href="#contact">Contact us directly</a> and we&rsquo;ll sort it.</p>
-  </section>
+      <section id="schedule" class="tab-content" role="tabpanel">
+        <h2>Schedule</h2>
+        <p class="muted">Four key dates between now and curtain up.</p>
 
-  <section id="contact" class="tab-content" role="tabpanel">
-    <h2>Contact</h2>
-    <p>Two main contacts &mdash; pick the one that matches your question.</p>
+        <ul class="shift-list">
+          <li class="shift-item">
+            <div class="shift-when">
+              <span class="shift-date">Fri 1 May 2026</span>
+              <span class="shift-time"
+                >Rehearsal &middot; 08:45 &ndash; 13:00</span
+              >
+            </div>
+            <div class="shift-body">
+              <p class="shift-note">
+                <strong>OLF school hall.</strong> Normal ballet outfits. Send
+                snacks, water and a blanket. Moms on duty will look after the
+                girls.
+              </p>
+            </div>
+          </li>
+          <li class="shift-item">
+            <div class="shift-when">
+              <span class="shift-date">Sat 9 May 2026</span>
+              <span class="shift-time"
+                >Rehearsal &middot; 08:45 &ndash; 13:30</span
+              >
+            </div>
+            <div class="shift-body">
+              <p class="shift-note">
+                <strong>OLF school hall.</strong> Same drill as 1 May &mdash;
+                ballet outfits, snacks, water, blanket.
+              </p>
+            </div>
+          </li>
+          <li class="shift-item">
+            <div class="shift-when">
+              <span class="shift-date">Fri 15 May 2026</span>
+              <span class="shift-time"
+                >Stage rehearsal &middot; sign in 13:00</span
+              >
+            </div>
+            <div class="shift-body">
+              <p class="shift-note">
+                <strong>Playhouse stage door.</strong> All dancers in normal
+                ballet outfits. Sign in at 13:00 &mdash; moms take dancers to
+                the dressing rooms. Collection times will be shared closer to
+                the date.
+              </p>
+            </div>
+          </li>
+          <li class="shift-item">
+            <div class="shift-when">
+              <span class="shift-date">Sat 16 May 2026</span>
+              <span class="shift-time"
+                >Show day &middot; 12:00 &amp; 15:00 performances</span
+              >
+            </div>
+            <div class="shift-body">
+              <p class="shift-note">
+                <strong>Playhouse stage door.</strong> Arrive 09:30, sign in
+                &mdash; moms take dancers to the dressing rooms. Collection at
+                the stage door after the 15:00 show, around 17:30.
+              </p>
+              <p class="shift-note backstage-note">
+                <strong>Backstage rule:</strong> only moms on the volunteer
+                roster are allowed backstage on show day.
+              </p>
+            </div>
+          </li>
+        </ul>
 
-    <div class="contact-cards">
-      <article class="contact-card">
-        <h3>Show outfit costs</h3>
-        <p class="contact-blurb">Questions about outstanding shirt or costume payments &mdash; reach <strong>Bron</strong> (Bronwyn Goble).</p>
-        <dl>
-          <div>
-            <dt>WhatsApp</dt>
-            <dd><a href="https://wa.me/27825580515" target="_blank" rel="noopener">+27 82 558 0515</a></dd>
+        <p class="venue-note">
+          <strong>Venues:</strong> rehearsals 1 &amp; 9 May at OLF school hall
+          &middot; 15 &amp; 16 May at the Playhouse Drama Theatre, 231 Anton
+          Lembede Street, Durban.
+        </p>
+      </section>
+
+      <section id="info" class="tab-content" role="tabpanel">
+        <h2>Important Info</h2>
+
+        <div id="info-rendered" aria-live="polite">
+          <p class="muted">Loading info&hellip;</p>
+        </div>
+
+        <article class="shift-panel info-panel">
+          <h3>Where to find the stage door</h3>
+          <p>
+            The Playhouse stage door is at
+            <strong>36 Acutt Street, Durban Central</strong> &mdash; round the
+            side from the main public entrance on Anton Lembede Street. All
+            dancers and helpers sign in here.
+          </p>
+
+          <div class="stage-door-map">
+            <iframe
+              src="https://www.google.com/maps?q=-29.859729,31.0269267&amp;z=17&amp;output=embed"
+              title="Playhouse Theatre stage door &mdash; 36 Acutt Street, Durban"
+              loading="lazy"
+            ></iframe>
           </div>
-          <div>
-            <dt>Email</dt>
-            <dd><a href="mailto:bron.palm@gmail.com">bron.palm@gmail.com</a></dd>
+          <p>
+            <a
+              href="https://www.google.com/maps/search/?api=1&amp;query=-29.859729,31.0269267"
+              target="_blank"
+              rel="noopener"
+              >Open the pin in Google Maps</a
+            >
+            &nbsp;&middot;&nbsp;
+            <a
+              href="https://www.google.com/maps/@?api=1&amp;map_action=pano&amp;pano=nKYU1POestcAfs3vvIIEpw&amp;heading=99.7&amp;pitch=12.76&amp;fov=90"
+              target="_blank"
+              rel="noopener"
+              >Open in Street View</a
+            >
+          </p>
+
+          <figure class="stage-door-photo">
+            <img
+              src="images/stage-door-2.jpg"
+              alt="Wide view down Acutt Street: red arrows show where Anton Lembede Street meets Acutt on the left, and the Playhouse stage-door entrance on the right."
+              loading="lazy"
+            />
+            <figcaption>
+              Looking down Acutt Street &mdash; Anton Lembede Street is on the
+              left; the stage door is the entrance on the right.
+            </figcaption>
+          </figure>
+          <figure class="stage-door-photo">
+            <img
+              src="images/stage-door-1.jpg"
+              alt="Close-up of the Playhouse stage-door entrance: recessed doorway with parents and dancers gathering near a red arrow marking the door."
+              loading="lazy"
+            />
+            <figcaption>
+              Close-up of the stage door &mdash; this is where you sign in.
+            </figcaption>
+          </figure>
+        </article>
+      </section>
+
+      <section id="volunteers" class="tab-content" role="tabpanel">
+        <h2>Volunteers</h2>
+        <p>
+          Volunteer signups are closed. Pick a shift below to see who&rsquo;s on
+          duty.
+        </p>
+
+        <div class="subtabs" role="tablist" aria-label="Volunteer shifts">
+          <button
+            type="button"
+            class="subtab-btn active"
+            role="tab"
+            data-subtab-target="1may"
+            aria-selected="true"
+          >
+            Fri 1 May
+          </button>
+          <button
+            type="button"
+            class="subtab-btn"
+            role="tab"
+            data-subtab-target="9may"
+            aria-selected="false"
+          >
+            Sat 9 May
+          </button>
+          <button
+            type="button"
+            class="subtab-btn"
+            role="tab"
+            data-subtab-target="15may"
+            aria-selected="false"
+          >
+            Fri 15 May
+          </button>
+          <button
+            type="button"
+            class="subtab-btn"
+            role="tab"
+            data-subtab-target="16may"
+            aria-selected="false"
+          >
+            Sat 16 May
+          </button>
+        </div>
+
+        <article
+          class="subtab-content shift-panel active"
+          data-subtab="1may"
+          role="tabpanel"
+        >
+          <div class="shift-when">
+            <span class="shift-date">Fri 1 May 2026</span>
+            <span class="shift-time"
+              >Full run &middot; 08:45 at Dandelion (OLF)</span
+            >
           </div>
-        </dl>
-      </article>
-
-      <article class="contact-card">
-        <h3>Rehearsals</h3>
-        <p class="contact-blurb">Times, venues, what to bring on the day &mdash; reach <strong>Louise</strong>.</p>
-        <dl>
-          <div>
-            <dt>WhatsApp</dt>
-            <dd><a href="https://wa.me/27842406284" target="_blank" rel="noopener">+27 84 240 6284</a></dd>
+          <div class="dynamic-roster" data-gid="1461728986" aria-live="polite">
+            <p class="muted">Loading roster&hellip;</p>
           </div>
-        </dl>
-      </article>
-    </div>
+        </article>
 
-    <p class="muted">For general studio questions or year-round leotards, see the <a href="#studio">Studio tab</a> or message <a href="https://web.facebook.com/p/Dandelion-Studio-of-Dance-61563399494901/" target="_blank" rel="noopener">Dandelion Studio of Dance on Facebook</a>.</p>
-  </section>
+        <article
+          class="subtab-content shift-panel"
+          data-subtab="9may"
+          role="tabpanel"
+        >
+          <div class="shift-when">
+            <span class="shift-date">Sat 9 May 2026</span>
+            <span class="shift-time"
+              >Rehearsal &middot; 08:45 &ndash; 13:30 at Dandelion (OLF)</span
+            >
+          </div>
+          <div class="dynamic-roster" data-gid="1682082248" aria-live="polite">
+            <p class="muted">Loading roster&hellip;</p>
+          </div>
+        </article>
 
-  <section id="studio" class="tab-content" role="tabpanel">
-    <h2>Dandelion Studio of Dance</h2>
-    <img class="studio-logo" src="images/DandelionStudioofDance.jpg" alt="Dandelion Studio of Dance logo &mdash; silhouette of a dancer with pink dandelion seeds blowing across the wordmark." loading="lazy">
-    <p>Dandelion Studio of Dance trains young dancers across ballet, contemporary and creative movement. The studio&rsquo;s annual showcase brings the whole company together for a full-length production, giving every dancer &mdash; from the youngest beginners to the senior company &mdash; the chance to perform on a professional stage.</p>
-    <p>Follow the studio for behind-the-scenes glimpses, rehearsal updates and class news.</p>
-    <p class="link-row">
-      <a class="cta-buy outline" href="https://web.facebook.com/p/Dandelion-Studio-of-Dance-61563399494901/" target="_blank" rel="noopener">Visit on Facebook &rsaquo;</a>
-    </p>
+        <article
+          class="subtab-content shift-panel"
+          data-subtab="15may"
+          role="tabpanel"
+        >
+          <div class="shift-when">
+            <span class="shift-date">Fri 15 May 2026</span>
+            <span class="shift-time"
+              >Stage rehearsal &middot; from 13:00 at the Playhouse</span
+            >
+          </div>
+          <div class="dynamic-roster" data-gid="370629041" aria-live="polite">
+            <p class="muted">Loading roster&hellip;</p>
+          </div>
+        </article>
 
-    <h3>Studio leotards</h3>
-    <p>Studio leotards are available year-round, not just for the show &mdash; sizes and colours through the studio. Drop us a message via the <a href="#contact">Contact</a> tab and we&rsquo;ll sort you out.</p>
-  </section>
+        <article
+          class="subtab-content shift-panel"
+          data-subtab="16may"
+          role="tabpanel"
+        >
+          <div class="shift-when">
+            <span class="shift-date">Sat 16 May 2026</span>
+            <span class="shift-time"
+              >Show day &middot; 09:30 &ndash; 17:30 at the Playhouse</span
+            >
+          </div>
+          <p class="shift-note backstage-note">
+            <strong>Heads up:</strong> only moms on the volunteer roster are
+            allowed backstage.
+          </p>
+          <div class="dynamic-roster" data-gid="419039550" aria-live="polite">
+            <p class="muted">Loading roster&hellip;</p>
+          </div>
+        </article>
+      </section>
 
+      <section id="orders" class="tab-content" role="tabpanel">
+        <h2>Orders</h2>
 
-</main>
+        <div class="subtabs" role="tablist" aria-label="Orders sections">
+          <button
+            type="button"
+            class="subtab-btn active"
+            role="tab"
+            data-subtab-target="shirts"
+            aria-selected="true"
+          >
+            Show shirt
+          </button>
+          <button
+            type="button"
+            class="subtab-btn"
+            role="tab"
+            data-subtab-target="photos"
+            aria-selected="false"
+          >
+            Show photos
+          </button>
+          <button
+            type="button"
+            class="subtab-btn"
+            role="tab"
+            data-subtab-target="video"
+            aria-selected="false"
+          >
+            Show video
+          </button>
+        </div>
 
-<footer class="footer">
-  <blockquote class="quote" id="footer-quote"></blockquote>
-</footer>
+        <article
+          class="order-card subtab-content active"
+          data-subtab="shirts"
+          role="tabpanel"
+        >
+          <h3>Show shirt</h3>
+          <img
+            class="shirt-photo"
+            src="images/t-shirt.jpg"
+            alt="Black short-sleeve t-shirt with the gold &lsquo;The Enchanted World of Oz &middot; Dandelion Studio of Dance&rsquo; wordmark on the upper-right chest."
+            loading="lazy"
+          />
+          <p>
+            Commemorative <em>Enchanted World of Oz</em> shirt &mdash;
+            <strong>R220&ndash;R240</strong> depending on size. Pay by EFT to
+            <strong
+              >Bronwyn Goble &middot; FNB 63085299725 &middot; branch
+              250655</strong
+            >, ref: <em>Surname + Shirt</em>.
+          </p>
+          <p class="cash-note">
+            <strong>Orders are closed.</strong> Find your dancer&rsquo;s row
+            below to confirm the size and check it shows <em>Paid</em> &mdash;
+            if not, get the EFT through.
+          </p>
 
-<script src="app.js?v=__VERSION__" defer></script>
-</body>
+          <h4>Who&rsquo;s ordered</h4>
+          <div class="orders-list" id="shirt-orders-list" aria-live="polite">
+            <p class="muted">Loading the list&hellip;</p>
+          </div>
+        </article>
+
+        <article
+          class="order-card subtab-content"
+          data-subtab="photos"
+          role="tabpanel"
+        >
+          <h3>Show photos</h3>
+          <p>
+            Browse and order professional photos by
+            <strong>Tantalising Twins</strong> &mdash; digital files, prints and
+            canvases on Pixieset.
+          </p>
+          <a
+            class="cta-buy"
+            href="https://tantalisingtwins.pixieset.com/dandeliondancestudiophotoshoot/"
+            target="_blank"
+            rel="noopener"
+            >Browse the gallery &rsaquo;</a
+          >
+
+          <h4>Pricing</h4>
+          <a
+            class="pricing-image"
+            href="images/Photos-PrintingPriceList.jpeg"
+            target="_blank"
+            rel="noopener"
+            title="Open the full pricing list"
+          >
+            <img
+              src="images/Photos-PrintingPriceList.jpeg"
+              alt="Tantalising Twins pricing — digital photos from R150; prints from R30 (4x6) up to R110 (12x18); premium canvases R850–R1900; budget canvases R350–R750."
+              loading="lazy"
+            />
+          </a>
+          <p class="muted">Tap to open at full size.</p>
+
+          <h4>How to order</h4>
+          <a
+            class="pricing-image"
+            href="images/Photos-HowToOrder.png"
+            target="_blank"
+            rel="noopener"
+            title="Open the ordering instructions full size"
+          >
+            <img
+              src="images/Photos-HowToOrder.png"
+              alt="Step-by-step Pixieset ordering instructions: open the gallery link, create a favourites list (the 'heart' icon), pick the photos you want, click the printer icon to order prints, pay by EFT using your full name as the reference. Prints take ~10 working days; delivery 4–6 weeks once order is placed."
+              loading="lazy"
+            />
+          </a>
+          <p class="muted">Tap to open at full size.</p>
+        </article>
+
+        <article
+          class="order-card subtab-content"
+          data-subtab="video"
+          role="tabpanel"
+        >
+          <h3>Show video</h3>
+          <p>
+            Professional show video by <strong>AngelMedia</strong> &mdash; HD
+            USB <strong>R250</strong> per show, or download link
+            <strong>R140</strong> per show.
+          </p>
+          <p class="cash-note">
+            <strong>Cash only.</strong> Pop the order slip and cash in an
+            envelope and return to Louise &mdash; no EFT.
+          </p>
+
+          <h4>Order slip</h4>
+          <a
+            class="pricing-image"
+            href="images/Video-OrderForm.jpeg"
+            target="_blank"
+            rel="noopener"
+            title="Open the video order slip full size"
+          >
+            <img
+              src="images/Video-OrderForm.jpeg"
+              alt="AngelMedia video order return slip — fill in parent's name, child's name, contact number and email, tick the number of HD USBs (R250 each) or download links (R140 each) per show, total at the bottom. Return slip and cash in an envelope to Louise. Queries: Mark Whitlock 083 340 1390 / angelmedia@telkomsa.net"
+              loading="lazy"
+            />
+          </a>
+          <p class="muted">Tap to open at full size for printing.</p>
+
+          <p class="muted">
+            Queries: Mark Whitlock &middot;
+            <a href="tel:+27833401390">083 340 1390</a> &middot;
+            <a href="mailto:angelmedia@telkomsa.net">angelmedia@telkomsa.net</a>
+          </p>
+        </article>
+
+        <p class="muted">
+          Need help? <a href="#contact">Contact us directly</a> and we&rsquo;ll
+          sort it.
+        </p>
+      </section>
+
+      <section id="contact" class="tab-content" role="tabpanel">
+        <h2>Contact</h2>
+        <p>
+          Two main contacts &mdash; pick the one that matches your question.
+        </p>
+
+        <div class="contact-cards">
+          <article class="contact-card">
+            <h3>Show outfit costs</h3>
+            <p class="contact-blurb">
+              Questions about outstanding shirt or costume payments &mdash;
+              reach <strong>Bron</strong> (Bronwyn Goble).
+            </p>
+            <dl>
+              <div>
+                <dt>WhatsApp</dt>
+                <dd>
+                  <a
+                    href="https://wa.me/27825580515"
+                    target="_blank"
+                    rel="noopener"
+                    >+27 82 558 0515</a
+                  >
+                </dd>
+              </div>
+              <div>
+                <dt>Email</dt>
+                <dd>
+                  <a href="mailto:bron.palm@gmail.com">bron.palm@gmail.com</a>
+                </dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="contact-card">
+            <h3>Rehearsals</h3>
+            <p class="contact-blurb">
+              Times, venues, what to bring on the day &mdash; reach
+              <strong>Louise</strong>.
+            </p>
+            <dl>
+              <div>
+                <dt>WhatsApp</dt>
+                <dd>
+                  <a
+                    href="https://wa.me/27842406284"
+                    target="_blank"
+                    rel="noopener"
+                    >+27 84 240 6284</a
+                  >
+                </dd>
+              </div>
+            </dl>
+          </article>
+        </div>
+
+        <p class="muted">
+          For general studio questions or year-round leotards, see the
+          <a href="#studio">Studio tab</a> or message
+          <a
+            href="https://web.facebook.com/p/Dandelion-Studio-of-Dance-61563399494901/"
+            target="_blank"
+            rel="noopener"
+            >Dandelion Studio of Dance on Facebook</a
+          >.
+        </p>
+      </section>
+
+      <section id="studio" class="tab-content" role="tabpanel">
+        <h2>Dandelion Studio of Dance</h2>
+        <img
+          class="studio-logo"
+          src="images/DandelionStudioofDance.jpg"
+          alt="Dandelion Studio of Dance logo &mdash; silhouette of a dancer with pink dandelion seeds blowing across the wordmark."
+          loading="lazy"
+        />
+        <p>
+          Dandelion Studio of Dance trains young dancers across ballet,
+          contemporary and creative movement. The studio&rsquo;s annual showcase
+          brings the whole company together for a full-length production, giving
+          every dancer &mdash; from the youngest beginners to the senior company
+          &mdash; the chance to perform on a professional stage.
+        </p>
+        <p>
+          Follow the studio for behind-the-scenes glimpses, rehearsal updates
+          and class news.
+        </p>
+        <p class="link-row">
+          <a
+            class="cta-buy outline"
+            href="https://web.facebook.com/p/Dandelion-Studio-of-Dance-61563399494901/"
+            target="_blank"
+            rel="noopener"
+            >Visit on Facebook &rsaquo;</a
+          >
+        </p>
+
+        <h3>Studio leotards</h3>
+        <p>
+          Studio leotards are available year-round, not just for the show
+          &mdash; sizes and colours through the studio. Drop us a message via
+          the <a href="#contact">Contact</a> tab and we&rsquo;ll sort you out.
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <blockquote class="quote" id="footer-quote"></blockquote>
+    </footer>
+
+    <script src="app.js?v=__VERSION__" defer></script>
+  </body>
 </html>

@@ -14,6 +14,7 @@
   // `.dynamic-roster` container; missing tabs fall back to "Roster being
   // finalised".
   const VOLUNTEER_CSV_BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTsTQ7jHG6shlT7d1Lnka3w2x8BfSde7vAvSM6zkWaSmN3VI11rcGdpwQiFjCyIBeNvkyIG08veZm7E/pub?output=csv';
+  const INFO_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRMzn1EUWtQ11WBJR7cPzmCZ-8W4bWNEXW8kaCUke0YFwpjuDXbPxogv3daOzssVS40Jb9iFKBgQR8y/pub?output=csv';
 
   // Pick the right emoji from the dance Character column — first regex match
   // wins. Order from most-specific (named WoO characters) to most-general
@@ -123,7 +124,9 @@
   }
 
   // -------- CSV parser --------
-  function parseCSV(text) {
+  // Returns rows as raw arrays of fields. Newlines inside quoted cells are
+  // preserved as `\n` in the field string.
+  function parseRawCSV(text) {
     const rows = [];
     let row = [], field = '', inQuotes = false;
     for (let i = 0; i < text.length; i++) {
@@ -140,8 +143,14 @@
       } else { field += c; }
     }
     if (field.length || row.length) { row.push(field); rows.push(row); }
+    return rows;
+  }
 
-    const cleaned = rows.filter(r => r.length && r.some(v => v.trim() !== ''));
+  // Header-row variant: drops empty rows and turns the first row into keys for
+  // the rest. Used by the shirt + volunteer feeds; the info feed uses the raw
+  // form because it's a free-form layout, not a table.
+  function parseCSV(text) {
+    const cleaned = parseRawCSV(text).filter(r => r.length && r.some(v => v.trim() !== ''));
     if (!cleaned.length) return [];
     const headers = cleaned[0].map(h => h.trim());
     return cleaned.slice(1).map(r => {
@@ -236,6 +245,82 @@
         </table>
       </div>
     `;
+  }
+
+  // -------- Show info (live free-form sheet) --------
+  // The sheet has no header row — column A is a label/heading (sometimes
+  // emoji-prefixed), column B is the value/content. Each top-level heading
+  // becomes its own card. Multi-line cells preserve line breaks.
+  async function renderInfo() {
+    const target = $('#info-rendered');
+    if (!target) return;
+
+    let rows;
+    try {
+      const res = await fetch(INFO_CSV_URL, { cache: 'no-store' });
+      if (!res.ok) throw new Error(`${INFO_CSV_URL} → ${res.status}`);
+      rows = parseRawCSV(await res.text());
+    } catch (e) {
+      console.warn('Info load skipped:', e.message);
+      target.innerHTML = `<p class="muted">Couldn&rsquo;t load show info right now &mdash; try refreshing in a moment.</p>`;
+      return;
+    }
+
+    const isEmojiHeading = s => /^\p{Extended_Pictographic}/u.test(s);
+    const cleanHeading = h => h.replace(/[:：]\s*$/, '');
+    const fmt = s => escapeHtml(s).replace(/\n/g, '<br>');
+
+    // Group rows into sections. Empty rows finalise the current section.
+    // - Emoji-prefixed col A starts a "list" card; subsequent rows fold into
+    //   it (col A becomes inline bold sub-labels, empty col A is a plain item).
+    // - Plain col A (e.g. "Hair:") starts a "kv" card; subsequent empty-col-A
+    //   rows continue it.
+    // - Continuation rows with no current section become an "orphan" intro.
+    const sections = [];
+    let current = null;
+    for (const r of rows) {
+      const a = (r[0] || '').trim();
+      const b = (r[1] || '').trim();
+      if (!a && !b) { if (current) { sections.push(current); current = null; } continue; }
+      if (a === '[ ]') continue;
+
+      if (a && isEmojiHeading(a)) {
+        if (current) sections.push(current);
+        current = { kind: 'list', heading: a, items: [] };
+        if (b) current.items.push({ label: '', value: b });
+      } else if (a) {
+        if (current && current.kind === 'list') {
+          current.items.push({ label: a, value: b });
+        } else {
+          if (current) sections.push(current);
+          current = { kind: 'kv', heading: a, items: b ? [{ label: '', value: b }] : [] };
+        }
+      } else {
+        if (!current) current = { kind: 'orphan', heading: '', items: [] };
+        current.items.push({ label: '', value: b });
+      }
+    }
+    if (current) sections.push(current);
+
+    if (!sections.length) {
+      target.innerHTML = `<p class="muted roster-pending">Info is being prepared by the studio.</p>`;
+      return;
+    }
+
+    target.innerHTML = sections.map(s => {
+      // Orphan (preamble) stays a plain paragraph above the cards.
+      if (s.kind === 'orphan') {
+        return s.items.map(it => `<p class="info-line">${fmt(it.value)}</p>`).join('');
+      }
+      const items = s.items.map(it => {
+        const value = fmt(it.value);
+        return it.label
+          ? `<li class="info-line"><strong>${fmt(it.label)}</strong> ${value}</li>`
+          : `<li class="info-line">${value}</li>`;
+      }).join('');
+      const heading = s.heading ? `<h3>${fmt(cleanHeading(s.heading))}</h3>` : '';
+      return `<article class="shift-panel info-panel">${heading}<ul class="info-list">${items}</ul></article>`;
+    }).join('');
   }
 
   // -------- Volunteers (live roster from published Google Sheet) --------
@@ -416,5 +501,6 @@
     startCountdown();
     renderShirtOrders();
     renderVolunteers();
+    renderInfo();
   });
 })();
