@@ -46,6 +46,10 @@ A small static **logistics hub for the dance moms** preparing for Dandelion Stud
 - The show logo (`images/logo.png`) is the multi-colour gold word-mark extracted from `ShirtLogo_BLACK.pdf` via `pdftocairo -png -r 200 -singlefile -transp`. It's displayed as a normal `<img>` — **no CSS mask**. The colour is part of the artwork.
 - Favicons (`favicon.ico`, `favicon-32.png`, `apple-touch-icon.png`) were generated from the logo onto a cream background so the gold wordmark reads on the browser tab. Regenerate from `images/logo.png` if it changes (Pillow recipe in commit history).
 
+## Analytics
+
+- **Google Analytics 4** wired up. Property: `G-GP77MVX97V`. Snippet is in `index.html` `<head>`. SPA pageviews are tracked manually — `send_page_view: false` in the config and `switchTab()` in `app.js` fires `gtag('event','page_view', …)` on every tab change (including initial load). Each tab shows up as its own row in **Reports → Engagement → Pages and screens** under `page_path` like `/ballet-web/#schedule`. Don't restore default auto-pageviews — it would double-count the initial load.
+
 ## Local preview
 
 - **`python3 -m http.server 8765`** in the project root, then open `http://localhost:8765/`. The shirt-orders list uses `fetch()` to pull a published Google Sheet CSV, which browsers block on `file://`. Always run a server.

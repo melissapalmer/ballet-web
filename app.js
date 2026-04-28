@@ -27,7 +27,7 @@
     [/\blion\b/i, '🦁'],
     [/\bwizard\b/i, '🧙'],
     [/\bwitch\b/i, '🧙‍♀️'],
-    [/\btoto\b/i, '🐶'],
+    [/\btoto\b/i, '🐕'],
     [/\bmunchkin/i, '🎈'],
     [/\bemerald\b/i, '💚'],
     [/\bcrow/i, '🐦‍⬛'],
@@ -64,7 +64,7 @@
     'Junior Contemp (Gr 1-2)': '🩰',
     'Contemp Gr 3-4': '💃',
     'Contemp Gr 5-6': '🎶',
-    'Special - Toto': '🐶',
+    'Special - Toto': '🐕',
     'Special - Crows': '🐦‍⬛',
     'Special - Timing': '⏱️',
   };
@@ -90,6 +90,7 @@
     '🧙': '1f9d9',
     '🧙‍♀️': '1f9d9-200d-2640-fe0f',
     '🐶': '1f436',
+    '🐕': '1f415',
     '🎈': '1f388',
     '💚': '1f49a',
     '🐦‍⬛': '1f426-200d-2b1b',
@@ -321,6 +322,14 @@
   }
 
   // -------- Tabs --------
+  function trackPageView(name) {
+    if (typeof window.gtag !== 'function') return;
+    window.gtag('event', 'page_view', {
+      page_title: 'Ballet Web — ' + name,
+      page_location: window.location.origin + window.location.pathname + '#' + name,
+    });
+  }
+
   function switchTab(name) {
     if (!TABS.includes(name)) name = 'home';
     $$('.tab-btn').forEach(b => {
@@ -333,6 +342,7 @@
     if (location.hash.slice(1) !== name) history.replaceState(null, '', '#' + name);
     window.scrollTo({ top: 0 });
     showRandomQuote();
+    trackPageView(name);
   }
 
   function wireNav() {
@@ -345,7 +355,7 @@
     $('.logo')?.addEventListener('click', e => { e.preventDefault(); switchTab('home'); });
     window.addEventListener('hashchange', () => switchTab(location.hash.slice(1)));
     const initial = location.hash.slice(1);
-    if (TABS.includes(initial)) switchTab(initial);
+    switchTab(TABS.includes(initial) ? initial : 'home');
   }
 
   function wireSubTabs() {
