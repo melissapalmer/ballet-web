@@ -23,16 +23,7 @@ Each match shows the line number and the placeholder name. Replace with the real
 
 The placeholders currently in use:
 
-| Placeholder | What goes there |
-|---|---|
-| `#TODO-bron-whatsapp-link` | `https://wa.me/27...` link for Bron |
-| `#TODO-bron-whatsapp-number` | Display version of Bron's WhatsApp number |
-| `#TODO-bron-email-mailto` | `mailto:bron@…` link |
-| `#TODO-bron-email-address` | Display version of Bron's email |
-| `#TODO-louise-whatsapp-link` | `https://wa.me/27...` link for Louise |
-| `#TODO-louise-whatsapp-number` | Display version of Louise's WhatsApp number |
-| `#TODO-louise-email-mailto` | `mailto:louise@…` link |
-| `#TODO-louise-email-address` | Display version of Louise's email |
+All placeholders are currently filled in. If a new one is added later, `grep` will surface it.
 
 ### Adding a volunteer roster
 
