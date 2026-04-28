@@ -96,7 +96,6 @@
 
     const orders = rows.map(r => ({
       name: (r["Child's Name (s)"] || '').trim(),
-      grade: (r["Child's Ballet Grade / Group (s)"] || '').trim(),
       size: (r["Shirt Size(s)"] || '').trim(),
       paid: /^y/i.test((r["Paid"] || '').trim()),
     })).filter(o => o.name);
@@ -119,13 +118,12 @@
       <div class="orders-table-wrap">
         <table class="orders-table">
           <thead>
-            <tr><th scope="col">Dancer</th><th scope="col">Grade</th><th scope="col">Size</th><th scope="col">Paid</th></tr>
+            <tr><th scope="col">Dancer</th><th scope="col">Size</th><th scope="col">Paid</th></tr>
           </thead>
           <tbody>
             ${orders.map(o => `
               <tr class="${o.paid ? 'is-paid' : 'is-due'}">
                 <td>${escapeHtml(o.name)}</td>
-                <td>${escapeHtml(o.grade)}</td>
                 <td>${escapeHtml(o.size)}</td>
                 <td aria-label="${o.paid ? 'Paid' : 'Not paid'}">${o.paid ? '&check;' : '&times;'}</td>
               </tr>

@@ -507,15 +507,15 @@ h3 {
   top: 0;
 }
 .orders-table td:first-child { font-weight: 600; color: var(--text); white-space: nowrap; }
-.orders-table td:nth-child(3) { white-space: nowrap; }
-.orders-table td:nth-child(4) {
+.orders-table td:nth-child(2) { white-space: nowrap; }
+.orders-table td:nth-child(3) {
   text-align: center;
   font-weight: 700;
   font-size: 1.05rem;
   width: 1%;
 }
-.orders-table tr.is-paid td:nth-child(4) { color: var(--accent); }
-.orders-table tr.is-due td:nth-child(4) { color: #b14a2b; }
+.orders-table tr.is-paid td:nth-child(3) { color: var(--accent); }
+.orders-table tr.is-due td:nth-child(3) { color: #b14a2b; }
 .orders-table tr.is-due { background: rgba(177, 74, 43, 0.04); }
 .orders-table tbody tr:last-child td { border-bottom: 0; }
 @media (max-width: 480px) {
