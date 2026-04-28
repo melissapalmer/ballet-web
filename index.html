@@ -122,53 +122,53 @@
 
   <section id="volunteers" class="tab-content" role="tabpanel">
     <h2>Volunteers</h2>
-    <p>Volunteer signups are closed. Rosters are shared by shift below as the studio finalises them &mdash; find your dancer&rsquo;s class to see who&rsquo;s on duty.</p>
+    <p>Volunteer signups are closed. Pick a shift below to see who&rsquo;s on duty.</p>
 
-    <ul class="shift-list">
-      <li class="shift-item">
-        <div class="shift-when">
-          <span class="shift-date">Fri 1 May 2026</span>
-          <span class="shift-time">Full run &middot; 08:45 at Dandelion (OLF)</span>
-        </div>
-        <div class="shift-body">
-          <div class="dynamic-roster" data-gid="1461728986" aria-live="polite">
-            <p class="muted">Loading roster&hellip;</p>
-          </div>
-        </div>
-      </li>
-      <li class="shift-item">
-        <div class="shift-when">
-          <span class="shift-date">Sat 9 May 2026</span>
-          <span class="shift-time">Rehearsal &middot; 08:45 &ndash; 13:30 at Dandelion (OLF)</span>
-        </div>
-        <div class="shift-body">
-          <div class="dynamic-roster" data-gid="1682082248" aria-live="polite">
-            <p class="muted">Loading roster&hellip;</p>
-          </div>
-        </div>
-      </li>
-      <li class="shift-item">
-        <div class="shift-when">
-          <span class="shift-date">Fri 15 May 2026</span>
-          <span class="shift-time">Stage rehearsal &middot; from 13:00 at the Playhouse</span>
-        </div>
-        <div class="shift-body">
-          <!-- TODO: when the studio shares this shift's tab, swap for: <div class="dynamic-roster" data-gid="…">…</div> -->
-          <p class="muted roster-pending">Roster being finalised &mdash; check back closer to the date.</p>
-        </div>
-      </li>
-      <li class="shift-item">
-        <div class="shift-when">
-          <span class="shift-date">Sat 16 May 2026</span>
-          <span class="shift-time">Show day &middot; 09:30 &ndash; 17:30 at the Playhouse</span>
-        </div>
-        <div class="shift-body">
-          <p class="shift-note backstage-note"><strong>Heads up:</strong> only moms on the volunteer roster are allowed backstage.</p>
-          <!-- TODO: when the studio shares this shift's tab, swap for: <div class="dynamic-roster" data-gid="…">…</div> -->
-          <p class="muted roster-pending">Show-day roster being finalised &mdash; check back closer to the date.</p>
-        </div>
-      </li>
-    </ul>
+    <div class="subtabs" role="tablist" aria-label="Volunteer shifts">
+      <button type="button" class="subtab-btn active" role="tab" data-subtab-target="1may" aria-selected="true">Fri 1 May</button>
+      <button type="button" class="subtab-btn" role="tab" data-subtab-target="9may" aria-selected="false">Sat 9 May</button>
+      <button type="button" class="subtab-btn" role="tab" data-subtab-target="15may" aria-selected="false">Fri 15 May</button>
+      <button type="button" class="subtab-btn" role="tab" data-subtab-target="16may" aria-selected="false">Sat 16 May</button>
+    </div>
+
+    <article class="subtab-content shift-panel active" data-subtab="1may" role="tabpanel">
+      <div class="shift-when">
+        <span class="shift-date">Fri 1 May 2026</span>
+        <span class="shift-time">Full run &middot; 08:45 at Dandelion (OLF)</span>
+      </div>
+      <div class="dynamic-roster" data-gid="1461728986" aria-live="polite">
+        <p class="muted">Loading roster&hellip;</p>
+      </div>
+    </article>
+
+    <article class="subtab-content shift-panel" data-subtab="9may" role="tabpanel">
+      <div class="shift-when">
+        <span class="shift-date">Sat 9 May 2026</span>
+        <span class="shift-time">Rehearsal &middot; 08:45 &ndash; 13:30 at Dandelion (OLF)</span>
+      </div>
+      <div class="dynamic-roster" data-gid="1682082248" aria-live="polite">
+        <p class="muted">Loading roster&hellip;</p>
+      </div>
+    </article>
+
+    <article class="subtab-content shift-panel" data-subtab="15may" role="tabpanel">
+      <div class="shift-when">
+        <span class="shift-date">Fri 15 May 2026</span>
+        <span class="shift-time">Stage rehearsal &middot; from 13:00 at the Playhouse</span>
+      </div>
+      <!-- TODO: when the studio shares this shift's tab, swap for: <div class="dynamic-roster" data-gid="…">…</div> -->
+      <p class="muted roster-pending">Roster being finalised &mdash; check back closer to the date.</p>
+    </article>
+
+    <article class="subtab-content shift-panel" data-subtab="16may" role="tabpanel">
+      <div class="shift-when">
+        <span class="shift-date">Sat 16 May 2026</span>
+        <span class="shift-time">Show day &middot; 09:30 &ndash; 17:30 at the Playhouse</span>
+      </div>
+      <p class="shift-note backstage-note"><strong>Heads up:</strong> only moms on the volunteer roster are allowed backstage.</p>
+      <!-- TODO: when the studio shares this shift's tab, swap for: <div class="dynamic-roster" data-gid="…">…</div> -->
+      <p class="muted roster-pending">Show-day roster being finalised &mdash; check back closer to the date.</p>
+    </article>
   </section>
 
   <section id="orders" class="tab-content" role="tabpanel">

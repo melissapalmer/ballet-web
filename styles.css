@@ -458,6 +458,8 @@ h3 {
 }
 
 .dynamic-roster { align-self: stretch; }
+.shift-panel { padding: 0.4rem 0 0; }
+.shift-panel > .shift-when { margin-bottom: 0.65rem; }
 img.emoji {
   display: inline-block;
   width: 1.1em;
