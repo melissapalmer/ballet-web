@@ -5,11 +5,11 @@ A small static site for the Dandelion Studio of Dance moms preparing for the 202
 ## Site contents
 
 - **Home** — welcome, countdown to curtain, and four shortcut tiles (Schedule, Volunteer, Orders, Contact).
-- **Schedule** — the four key dates: 1 May rehearsal, 9 May dress rehearsal, 16 May 12:00 and 15:00 performances, with notes per shift.
+- **Schedule** — four key dates: 1 May rehearsal (OLF), 9 May rehearsal (OLF), 15 May stage rehearsal (Playhouse), 16 May show day (12:00 + 15:00 performances) with venue, arrival/collection times and the backstage rule.
 - **Volunteers** — same shifts, each with a "Sign up" button linking to a Google Form.
-- **Orders** — three Google-Form links: show shirt order, studio leotard order, name-spelling check for the printed program.
+- **Orders** — show shirt (form), show photos (Tantalising Twins on Pixieset), show video (AngelMedia, cash + paper slip), name-spelling check (form).
 - **Contact** — studio name, contact name, WhatsApp, email, Facebook.
-- **Studio** — short About paragraph and Facebook link.
+- **Studio** — short About paragraph, Facebook link, and a note about year-round studio leotards.
 - **Gallery** — hidden until the first photo is added (see below).
 
 ## Filling in the Google Forms (and contact details)
@@ -28,7 +28,6 @@ The placeholders currently in use:
 |---|---|
 | `#TODO-volunteer-form` | Google Form URL for volunteer signup (one form covering all four shifts) |
 | `#TODO-shirt-order-form` | Google Form URL for show-shirt orders |
-| `#TODO-leotard-order-form` | Google Form URL for studio-leotard orders |
 | `#TODO-name-spelling-form` | Google Form URL for program name-spelling check |
 | `#TODO-contact-name` | Studio contact person's name |
 | `#TODO-whatsapp-link` | `https://wa.me/27...` link target |

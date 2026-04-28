@@ -25,8 +25,13 @@ A small static **logistics hub for the dance moms** preparing for Dandelion Stud
 ## Content rules
 
 - **Site is mom-facing only.** Don't add public Buy Tickets CTAs, ticket prices, the show synopsis, or the show poster to any tab. The studio handles public promotion via Playhouse Company / Webtickets.
-- **Show date is the source of truth.** Saturday 16 May 2026, two performances 12:00 and 15:00, Playhouse Drama Theatre Durban. Rehearsals 1 May (regular) and 9 May (dress, TBC). The countdown in `app.js` aims at the 12:00 show (`SHOW_DATETIME`). Update both `index.html` and `app.js` if dates shift.
-- **Google Form URLs are placeholders** (`#TODO-shirt-order-form`, `#TODO-leotard-order-form`, `#TODO-name-spelling-form`, `#TODO-volunteer-form`). When the studio sends URLs, replace them via Edit and commit. `grep -n '#TODO-' index.html` lists every outstanding placeholder.
+- **Show date is the source of truth.** Saturday 16 May 2026, two performances 12:00 and 15:00 at the Playhouse Drama Theatre, Durban. Show day arrival 09:30 stage door, collection ~17:30. The countdown in `app.js` aims at the 12:00 show (`SHOW_DATETIME`). Update both `index.html` and `app.js` if dates shift.
+- **Rehearsals**: Fri 1 May (08:45–13:00 OLF school hall), Sat 9 May (08:45–13:30 OLF school hall), Fri 15 May (stage rehearsal at the Playhouse, sign in 13:00). 1 May and 9 May are at the school hall — only 15 May is on stage. Don't relabel 9 May as the "dress rehearsal"; the on-stage run is 15 May.
+- **Backstage rule** (show day): only moms on the volunteer roster are allowed backstage. This warning lives in the Schedule and Volunteers tabs in `.backstage-note` blocks — keep both copies in sync if rewording.
+- **Google Form URLs are placeholders** (`#TODO-shirt-order-form`, `#TODO-name-spelling-form`, `#TODO-volunteer-form`). When the studio sends URLs, replace via Edit and commit. `grep -n '#TODO-' index.html` lists every outstanding placeholder.
+- **Studio leotards** are an *ongoing* year-round offering, **not** a show-prep order — they live on the Studio tab, not Orders. Don't re-add a leotard order form to Orders.
+- **Show photos** are sold by Tantalising Twins on Pixieset: <https://tantalisingtwins.pixieset.com/dandeliondancestudiophotoshoot/>. Linked from Orders → Show photos.
+- **Show videos** are sold by AngelMedia (Mark Whitlock, 083 340 1390, angelmedia@telkomsa.net): R250 HD USB or R140 download link per show, **cash only** (envelope with order slip returned to Louise). No online order form — Orders → Show video describes the process inline.
 - **Contact details are placeholders too** (`#TODO-contact-name`, `#TODO-whatsapp-number`, `#TODO-whatsapp-link`, `#TODO-email-address`, `#TODO-email-mailto`). Same `grep` lists them.
 - **Studio Facebook link is real** and confirmed: <https://web.facebook.com/p/Dandelion-Studio-of-Dance-61563399494901/>. Used on Contact and Studio tabs.
 - **Gallery photos** live in `data/photos.csv` (`filename,date,event,caption`) and `images/photos/`. Photos group by year, then by event. Newest first. The Gallery tab stays hidden when the CSV has only a header — do not "unhide" it without rows.

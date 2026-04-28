@@ -353,16 +353,24 @@ h3 {
 }
 .shift-body {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1rem;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.55rem;
 }
 .shift-note {
   margin: 0;
   font-size: 0.95rem;
   color: var(--text);
-  flex: 1 1 240px;
+  max-width: 65ch;
+}
+.shift-note strong { color: var(--accent-deep); }
+.shift-note.backstage-note {
+  background: rgba(201, 162, 39, 0.16);
+  border-left: 3px solid var(--gold);
+  padding: 0.55rem 0.85rem;
+  border-radius: 6px;
+  align-self: stretch;
+  max-width: none;
 }
 .venue-note {
   margin-top: 1.25rem;
@@ -402,6 +410,15 @@ h3 {
   align-self: flex-start;
   margin-top: 0.4rem;
 }
+.order-card .cash-note {
+  background: rgba(201, 162, 39, 0.16);
+  border-left: 3px solid var(--gold);
+  padding: 0.55rem 0.85rem;
+  border-radius: 6px;
+  margin: 0.2rem 0 0;
+  font-size: 0.92rem;
+}
+.order-card .muted a { color: var(--accent-deep); }
 
 /* ---------- Contact ---------- */
 .contact-card {
