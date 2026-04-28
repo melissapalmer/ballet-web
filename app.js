@@ -1,13 +1,13 @@
 /* The Enchanted World of Oz — site script
-   Tab navigation, countdown to the 12:00 show, photo lightbox, footer quote.
-   Plain HTML/CSS/JS, no build step, no dependencies. */
+   Tab navigation, countdown to the 12:00 show, live shirt orders list,
+   footer quote. Plain HTML/CSS/JS, no build step, no dependencies. */
 
 (() => {
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
   const SHOW_DATETIME = new Date('2026-05-16T12:00:00+02:00');
-  const TABS = ['home', 'schedule', 'volunteers', 'orders', 'contact', 'studio', 'gallery'];
+  const TABS = ['home', 'schedule', 'volunteers', 'orders', 'contact', 'studio'];
   const SHIRT_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtuO_Pqn9sGLxePT51BqIr72aWzzTqjFlskuDs62Pjlj4zSDUJtI012A4LuWn3C1UsyD1X6z6vl75e/pub?output=csv';
 
   // -------- CSV parser --------
@@ -48,14 +48,6 @@
       console.warn('CSV load skipped:', e.message);
       return null;
     }
-  }
-
-  // -------- Date helpers --------
-  function parsePhotoDate(dateStr) {
-    if (!dateStr) return null;
-    const [y, m, d] = dateStr.split('-').map(Number);
-    if (!y) return null;
-    return new Date(y, (m || 1) - 1, d || 1);
   }
 
   // -------- Countdown --------
@@ -134,106 +126,9 @@
     `;
   }
 
-  // -------- Photos & lightbox --------
-  let currentPhotos = [];
-  let currentIndex = 0;
-
-  async function renderPhotos() {
-    const grid = $('#photo-grid');
-    const galleryTab = $('.tab-gallery');
-    if (!grid || !galleryTab) return;
-
-    const rows = await loadCSV('data/photos.csv');
-    // No CSV file or empty list → keep gallery hidden, no error to the user
-    if (!rows || !rows.length) {
-      galleryTab.hidden = true;
-      return;
-    }
-    galleryTab.hidden = false;
-
-    const photos = rows.map(p => ({
-      ...p,
-      _dt: parsePhotoDate(p.date) || new Date(0),
-      _year: p.date ? p.date.slice(0, 4) : 'Undated',
-    })).sort((a, b) => b._dt - a._dt);
-
-    currentPhotos = photos;
-
-    const byYear = new Map();
-    photos.forEach((p, i) => {
-      if (!byYear.has(p._year)) byYear.set(p._year, new Map());
-      const eventKey = p.event && p.event.trim() ? p.event.trim() : 'Other';
-      const events = byYear.get(p._year);
-      if (!events.has(eventKey)) events.set(eventKey, []);
-      events.get(eventKey).push({ ...p, _index: i });
-    });
-
-    const renderTile = p => `
-      <button type="button" data-index="${p._index}" aria-label="${escapeHtml(p.caption || p.event || p.filename)}">
-        <img src="images/photos/${encodeURIComponent(p.filename)}" alt="${escapeHtml(p.caption || p.event || '')}" loading="lazy">
-        ${p.caption ? `<span class="caption">${escapeHtml(p.caption)}</span>` : ''}
-      </button>
-    `;
-
-    const eventDate = items => {
-      const d = items[0]._dt;
-      if (!d || d.getTime() === 0) return '';
-      return d.toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' });
-    };
-
-    grid.innerHTML = [...byYear.entries()].map(([year, events]) => `
-      <section class="photo-year">
-        <h3 class="photo-year-heading">${escapeHtml(year)}</h3>
-        ${[...events.entries()].map(([eventName, items]) => `
-          <div class="photo-event">
-            <h4 class="photo-event-heading">
-              <span class="photo-event-name">${escapeHtml(eventName)}</span>
-              ${eventDate(items) ? `<span class="photo-event-date">${escapeHtml(eventDate(items))}</span>` : ''}
-            </h4>
-            <div class="photo-event-grid">${items.map(renderTile).join('')}</div>
-          </div>
-        `).join('')}
-      </section>
-    `).join('');
-
-    $$('#photo-grid button').forEach(btn => {
-      btn.addEventListener('click', () => openLightbox(Number(btn.dataset.index)));
-    });
-  }
-
-  function openLightbox(index) {
-    if (!currentPhotos.length) return;
-    currentIndex = (index + currentPhotos.length) % currentPhotos.length;
-    const p = currentPhotos[currentIndex];
-    $('#lightbox-img').src = `images/photos/${encodeURIComponent(p.filename)}`;
-    $('#lightbox-img').alt = p.caption || '';
-    $('#lightbox-caption').textContent = p.caption || '';
-    $('#lightbox').hidden = false;
-    document.body.style.overflow = 'hidden';
-  }
-  function closeLightbox() {
-    $('#lightbox').hidden = true;
-    document.body.style.overflow = '';
-  }
-  function step(delta) { openLightbox(currentIndex + delta); }
-
-  function wireLightbox() {
-    $('#lightbox-close').addEventListener('click', closeLightbox);
-    $('#lightbox-prev').addEventListener('click', () => step(-1));
-    $('#lightbox-next').addEventListener('click', () => step(1));
-    $('#lightbox').addEventListener('click', e => { if (e.target.id === 'lightbox') closeLightbox(); });
-    document.addEventListener('keydown', e => {
-      if ($('#lightbox').hidden) return;
-      if (e.key === 'Escape') closeLightbox();
-      else if (e.key === 'ArrowLeft') step(-1);
-      else if (e.key === 'ArrowRight') step(1);
-    });
-  }
-
   // -------- Tabs --------
   function switchTab(name) {
     if (!TABS.includes(name)) name = 'home';
-    if (name === 'gallery' && $('.tab-gallery')?.hidden) name = 'home';
     $$('.tab-btn').forEach(b => {
       const on = b.dataset.tab === name;
       b.classList.toggle('active', on);
@@ -310,12 +205,10 @@
 
   // -------- Boot --------
   document.addEventListener('DOMContentLoaded', () => {
-    wireLightbox();
     wireNav();
     wireSubTabs();
     showRandomQuote();
     startCountdown();
     renderShirtOrders();
-    renderPhotos();
   });
 })();

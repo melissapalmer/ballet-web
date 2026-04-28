@@ -10,7 +10,6 @@ A small static site for the Dandelion Studio of Dance moms preparing for the 202
 - **Orders** — show shirt (form + **live order list** from a published Google Sheet CSV), show photos (Tantalising Twins on Pixieset), show video (AngelMedia, cash + paper slip). Name-spelling is closed and handled internally by the studio — no card needed.
 - **Contact** — studio name, contact name, WhatsApp, email, Facebook.
 - **Studio** — short About paragraph, Facebook link, and a note about year-round studio leotards.
-- **Gallery** — hidden until the first photo is added (see below).
 
 ## Filling in the Google Forms (and contact details)
 
@@ -36,21 +35,9 @@ The placeholders currently in use:
 
 When the studio shares a new shift's roster (e.g. for 9 May), open the corresponding `<li class="shift-item">` in `index.html` and replace the `<p class="muted roster-pending">…</p>` with the same `<dl class="roster-list">` structure used for 1 May. Class assignments go under a `<h4 class="roster-heading">Class roster</h4>`; backstage / general roles under a separate `<h4 class="roster-heading">General</h4>`. Preserve the studio's emoji and group names verbatim.
 
-## Adding photos after the show
-
-The Gallery tab automatically appears once `data/photos.csv` has at least one row.
-
-1. Drop JPGs into `images/photos/` (e.g. `2026-05-16-finale-1.jpg`).
-2. Add rows to `data/photos.csv` with columns `filename,date,event,caption`:
-   ```
-   2026-05-16-finale-1.jpg,2026-05-16,Finale,Whole company in Emerald City
-   ```
-   `event` groups multiple shots from the same scene; `caption` is per-photo and optional.
-3. Commit + push.
-
 ## Previewing locally
 
-The site uses `fetch()` to load `data/photos.csv`, which browsers block on `file://`. Run a local server:
+The shirt-orders list pulls a published Google Sheet CSV via `fetch()`, which browsers block on `file://`. Run a local server:
 
 ```bash
 cd /home/melissa/work/mp/repository/BRONWYN/ballet-web
@@ -93,8 +80,8 @@ If you'd rather use the GitHub web UI: create a new public repo named `ballet-we
 Every push to `main` redeploys automatically (~30 seconds) via [.github/workflows/deploy.yml](.github/workflows/deploy.yml).
 
 ```bash
-git add data/photos.csv images/photos/
-git commit -m "Add show photos"
+git add index.html
+git commit -m "Update content"
 git push
 ```
 
@@ -102,18 +89,15 @@ git push
 
 ```
 ballet-web/
-├── index.html           # Page markup (hero, tab nav, six panels + hidden gallery, lightbox)
+├── index.html           # Page markup (hero, tab nav, six tab panels)
 ├── styles.css           # Emerald + gold on cream, mobile-first
-├── app.js               # Tabs, countdown, lightbox, photos CSV loader
-├── data/
-│   └── photos.csv       # Header-only at launch; rows un-hide the Gallery tab
+├── app.js               # Tabs, sub-tabs, countdown, live shirt-orders CSV fetch
 ├── images/
 │   ├── poster.jpg       # Show advert (kept on disk; not currently shown on the mom-facing site)
 │   ├── logo.png         # Show logo (extracted from ShirtLogo_BLACK.pdf)
 │   ├── favicon.ico
 │   ├── favicon-32.png
-│   ├── apple-touch-icon.png
-│   └── photos/          # Photos referenced by data/photos.csv
+│   └── apple-touch-icon.png
 ├── .github/workflows/
 │   └── deploy.yml       # GitHub Pages workflow; injects commit SHA as cache-buster
 ├── .nojekyll            # Tells Pages to skip Jekyll processing

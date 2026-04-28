@@ -19,7 +19,7 @@ A small static **logistics hub for the dance moms** preparing for Dandelion Stud
 - **Tap targets ≥ 44×44px.**
 - **Use `clamp()` for type and padding.**
 - **Use `100dvh`/`100dvw`** (not `vh`/`vw`) for full-screen overlays.
-- **Layout is tab-based** — no scroll-to-anchor sections. Tabs are Home, Schedule, Volunteers, Orders, Contact, Studio, Gallery (hidden until photos exist).
+- **Layout is tab-based** — no scroll-to-anchor sections. Tabs are Home, Schedule, Volunteers, Orders, Contact, Studio.
 - **Hero is compact** — logo on the left, "Dance moms hub" + show title + tagline on the right. The hero stays consistent across tabs.
 
 ## Content rules
@@ -37,7 +37,7 @@ A small static **logistics hub for the dance moms** preparing for Dandelion Stud
 - **Show videos** are sold by AngelMedia (Mark Whitlock, 083 340 1390, angelmedia@telkomsa.net): R250 HD USB or R140 download link per show, **cash only** (envelope with order slip returned to Louise). No online order form — Orders → Show video describes the process inline.
 - **Contact details are placeholders too** (`#TODO-contact-name`, `#TODO-whatsapp-number`, `#TODO-whatsapp-link`, `#TODO-email-address`, `#TODO-email-mailto`). Same `grep` lists them.
 - **Studio Facebook link is real** and confirmed: <https://web.facebook.com/p/Dandelion-Studio-of-Dance-61563399494901/>. Used on Contact and Studio tabs.
-- **Gallery photos** live in `data/photos.csv` (`filename,date,event,caption`) and `images/photos/`. Photos group by year, then by event. Newest first. The Gallery tab stays hidden when the CSV has only a header — do not "unhide" it without rows.
+- **No Gallery tab** — the in-site gallery + lightbox were removed since the studio uses Tantalising Twins on Pixieset for show photos. Don't reintroduce a `<section id="gallery">` or a photo grid; link out to Pixieset from Orders → Show photos.
 - **Footer is a random Oz quote only** (defined in `app.js`'s `QUOTES` array). Don't add credits, sponsor logos, or other footer content without asking.
 
 ## Logo handling
@@ -47,7 +47,7 @@ A small static **logistics hub for the dance moms** preparing for Dandelion Stud
 
 ## Local preview
 
-- **`python3 -m http.server 8765`** in the project root, then open `http://localhost:8765/`. The Gallery uses `fetch()` to load `data/photos.csv`, which browsers block on `file://`. Always run a server.
+- **`python3 -m http.server 8765`** in the project root, then open `http://localhost:8765/`. The shirt-orders list uses `fetch()` to pull a published Google Sheet CSV, which browsers block on `file://`. Always run a server.
 
 ## Git & deploy
 
