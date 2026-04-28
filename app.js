@@ -267,6 +267,10 @@
     }
 
     const isEmojiHeading = s => /^\p{Extended_Pictographic}/u.test(s);
+    // Treat any col A that starts with "Intro" (case-insensitive) as a special
+    // preamble section — renders as a styled sub-heading above the cards
+    // rather than as its own card.
+    const isIntroLabel = s => /^intro\b/i.test(s);
     const cleanHeading = h => h.replace(/[:：]\s*$/, '');
     const fmt = s => escapeHtml(s).replace(/\n/g, '<br>');
 
@@ -284,7 +288,11 @@
       if (!a && !b) { if (current) { sections.push(current); current = null; } continue; }
       if (a === '[ ]') continue;
 
-      if (a && isEmojiHeading(a)) {
+      if (a && isIntroLabel(a)) {
+        if (current) sections.push(current);
+        current = { kind: 'orphan', heading: '', items: [] };
+        if (b) current.items.push({ label: '', value: b });
+      } else if (a && isEmojiHeading(a)) {
         if (current) sections.push(current);
         current = { kind: 'list', heading: a, items: [] };
         if (b) current.items.push({ label: '', value: b });
@@ -308,9 +316,12 @@
     }
 
     target.innerHTML = sections.map(s => {
-      // Orphan (preamble) stays a plain paragraph above the cards.
+      // Orphan (preamble) is rendered as a single styled sub-heading paragraph
+      // above the cards. Multiple rows in the intro section flow as one
+      // sentence with spaces between them — they don't get their own line.
       if (s.kind === 'orphan') {
-        return s.items.map(it => `<p class="info-line">${fmt(it.value)}</p>`).join('');
+        const text = s.items.map(it => fmt(it.value)).join(' ');
+        return `<p class="info-intro">${text}</p>`;
       }
       const items = s.items.map(it => {
         const value = fmt(it.value);
