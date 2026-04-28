@@ -9,6 +9,24 @@
   const SHOW_DATETIME = new Date('2026-05-16T12:00:00+02:00');
   const TABS = ['home', 'schedule', 'volunteers', 'orders', 'contact', 'studio'];
   const SHIRT_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtuO_Pqn9sGLxePT51BqIr72aWzzTqjFlskuDs62Pjlj4zSDUJtI012A4LuWn3C1UsyD1X6z6vl75e/pub?output=csv';
+  const VOLUNTEER_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTsTQ7jHG6shlT7d1Lnka3w2x8BfSde7vAvSM6zkWaSmN3VI11rcGdpwQiFjCyIBeNvkyIG08veZm7E/pub?output=csv';
+
+  // Emojis applied per group when rendering the volunteer roster — keyed by the
+  // exact "Group" value in the studio's sheet. Unknown groups fall back to 🎭.
+  const VOLUNTEER_GROUP_EMOJI = {
+    'Pre-Primary + Primary': '🌟',
+    'Test 1': '🦋',
+    'Grade 1': '❄️',
+    'Grade 2': '🤖',
+    'Grade 3': '🌷',
+    'Grade 4': '🌳',
+    'Junior Contemp (Gr 1-2)': '🩰',
+    'Contemp Gr 3-4': '💃',
+    'Contemp Gr 5-6': '🎶',
+    'Special - Toto': '🐶',
+    'Special - Crows': '🦅',
+    'Special - Timing': '⏱️',
+  };
 
   // -------- CSV parser --------
   function parseCSV(text) {
@@ -126,6 +144,70 @@
     `;
   }
 
+  // -------- Volunteers (live roster from published Google Sheet) --------
+  async function renderVolunteers() {
+    const target = $('#volunteer-roster');
+    if (!target) return;
+
+    const rows = await loadCSV(VOLUNTEER_CSV_URL);
+    if (!rows || !rows.length) {
+      target.innerHTML = `<p class="muted">Couldn&rsquo;t load the roster right now &mdash; try refreshing in a moment.</p>`;
+      return;
+    }
+
+    // Group rows by Group column, preserving source order.
+    const groups = new Map();
+    rows.forEach(r => {
+      const groupName = (r['Group'] || '').trim();
+      if (!groupName) return;
+      if (!groups.has(groupName)) {
+        groups.set(groupName, {
+          name: groupName,
+          character: (r['Character'] || '').trim(),
+          moms: [],
+        });
+      }
+      const mom = (r['Mum'] || '').trim();
+      if (mom) groups.get(groupName).moms.push(mom);
+    });
+
+    if (!groups.size) {
+      target.innerHTML = `<p class="muted">Roster is empty.</p>`;
+      return;
+    }
+
+    const classGroups = [];
+    const generalGroups = [];
+    for (const g of groups.values()) {
+      (g.name.startsWith('Special -') ? generalGroups : classGroups).push(g);
+    }
+
+    const renderRow = g => {
+      const emoji = VOLUNTEER_GROUP_EMOJI[g.name] || '🎭';
+      const cleanName = g.name.replace(/^Special - /, '');
+      return `
+        <div class="roster-row">
+          <dt class="roster-group">
+            <span class="roster-group-name">${emoji} ${escapeHtml(cleanName)}</span>
+            ${g.character ? `<span class="roster-character">${escapeHtml(g.character)}</span>` : ''}
+          </dt>
+          <dd class="roster-names">${g.moms.map(m => escapeHtml(m)).join(' &middot; ')}</dd>
+        </div>
+      `;
+    };
+
+    target.innerHTML = `
+      ${classGroups.length ? `
+        <h4 class="roster-heading">Class roster</h4>
+        <dl class="roster-list">${classGroups.map(renderRow).join('')}</dl>
+      ` : ''}
+      ${generalGroups.length ? `
+        <h4 class="roster-heading">General</h4>
+        <dl class="roster-list">${generalGroups.map(renderRow).join('')}</dl>
+      ` : ''}
+    `;
+  }
+
   // -------- Tabs --------
   function switchTab(name) {
     if (!TABS.includes(name)) name = 'home';
@@ -210,5 +292,6 @@
     showRandomQuote();
     startCountdown();
     renderShirtOrders();
+    renderVolunteers();
   });
 })();

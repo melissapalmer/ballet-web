@@ -413,6 +413,16 @@ h3 {
   font-size: 0.85em;
   margin-left: 0.25rem;
 }
+.roster-group-name { display: block; }
+.roster-character {
+  display: block;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.82em;
+  color: var(--gold);
+  margin-top: 0.1em;
+  letter-spacing: 0.01em;
+}
 .roster-names {
   margin: 0;
   color: var(--text);
@@ -423,24 +433,7 @@ h3 {
   font-style: italic;
 }
 
-/* Embedded Google Sheet (live roster preview) */
-.sheet-embed {
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  overflow: hidden;
-  background: #fff;
-  margin: 0.6rem 0 0.4rem;
-  box-shadow: var(--shadow);
-}
-.sheet-embed iframe {
-  display: block;
-  width: 100%;
-  height: 800px;
-  border: 0;
-}
-@media (max-width: 600px) {
-  .sheet-embed iframe { height: 600px; }
-}
+.volunteer-roster { align-self: stretch; }
 @media (min-width: 600px) {
   .roster-row {
     grid-template-columns: minmax(180px, 260px) 1fr;
