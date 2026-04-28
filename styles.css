@@ -466,6 +466,10 @@ h3 {
   padding: 0.9rem 1.1rem;
 }
 .shift-panel > .shift-when { margin-bottom: 0.65rem; }
+.shift-panel > h3 { margin-top: 0; margin-bottom: 0.4rem; }
+.info-panel + .info-panel { margin-top: 0.8rem; }
+.info-panel p { margin: 0 0 0.4rem; }
+.info-panel p:last-child { margin-bottom: 0; }
 img.emoji {
   display: inline-block;
   width: 1.1em;

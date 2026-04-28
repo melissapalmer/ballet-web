@@ -7,7 +7,7 @@
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
   const SHOW_DATETIME = new Date('2026-05-16T12:00:00+02:00');
-  const TABS = ['home', 'schedule', 'volunteers', 'orders', 'contact', 'studio'];
+  const TABS = ['home', 'schedule', 'info', 'volunteers', 'orders', 'contact', 'studio'];
   const SHIRT_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtuO_Pqn9sGLxePT51BqIr72aWzzTqjFlskuDs62Pjlj4zSDUJtI012A4LuWn3C1UsyD1X6z6vl75e/pub?output=csv';
   // Base URL for the studio's published Backstage Mums sheet. Each shift can
   // add `&gid=…` for its specific tab via a `data-gid` attribute on the

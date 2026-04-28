@@ -19,7 +19,7 @@ A small static **logistics hub for the dance moms** preparing for Dandelion Stud
 - **Tap targets ≥ 44×44px.**
 - **Use `clamp()` for type and padding.**
 - **Use `100dvh`/`100dvw`** (not `vh`/`vw`) for full-screen overlays.
-- **Layout is tab-based** — no scroll-to-anchor sections. Tabs are Home, Schedule, Volunteers, Orders, Contact, Studio.
+- **Layout is tab-based** — no scroll-to-anchor sections. Tabs are Home, Schedule, Info, Volunteers, Orders, Contact, Studio.
 - **Hero is compact** — logo on the left, "Dance moms hub" + show title + tagline on the right. The hero stays consistent across tabs.
 
 ## Content rules
