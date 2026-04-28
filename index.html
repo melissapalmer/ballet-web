@@ -177,32 +177,36 @@
 
   <section id="orders" class="tab-content" role="tabpanel">
     <h2>Orders</h2>
-    <p>Three things for showtime &mdash; check the list, then order anything still outstanding.</p>
 
-    <div class="order-grid">
-      <article class="order-card order-card-wide">
-        <h3>Show shirt</h3>
-        <p>Commemorative <em>Enchanted World of Oz</em> shirt &mdash; <strong>R220</strong>. Pay by EFT to <strong>Bronwyn Goble &middot; FNB 63085299725 &middot; branch 250655</strong>, ref: <em>Surname + Shirt</em>.</p>
-        <p class="cash-note"><strong>Form closes today.</strong> If you&rsquo;ve already ordered, scroll down and check your dancer&rsquo;s row says <em>Paid</em> &mdash; if not, get the EFT in.</p>
-        <a class="cta-buy" href="https://docs.google.com/forms/d/e/1FAIpQLSeJUsh1MeCCcZOTTVSOG8bPNszdwP5wiYY3v4Bro8AVDRBIyQ/viewform" target="_blank" rel="noopener">Order shirts &rsaquo;</a>
-
-        <h4>Who&rsquo;s ordered</h4>
-        <div class="orders-list" id="shirt-orders-list" aria-live="polite">
-          <p class="muted">Loading the list&hellip;</p>
-        </div>
-      </article>
-      <article class="order-card">
-        <h3>Show photos</h3>
-        <p>Browse and order professional photos by <strong>Tantalising Twins</strong> &mdash; digital files, prints and canvases on Pixieset.</p>
-        <a class="cta-buy" href="https://tantalisingtwins.pixieset.com/dandeliondancestudiophotoshoot/" target="_blank" rel="noopener">Browse the gallery &rsaquo;</a>
-      </article>
-      <article class="order-card">
-        <h3>Show video</h3>
-        <p>Professional show video by <strong>AngelMedia</strong> &mdash; HD USB <strong>R250</strong> per show, or download link <strong>R140</strong> per show.</p>
-        <p class="cash-note"><strong>Cash only.</strong> Pop the order slip and cash in an envelope and return to Louise &mdash; no EFT.</p>
-        <p class="muted">Queries: Mark Whitlock &middot; <a href="tel:+27833401390">083 340 1390</a> &middot; <a href="mailto:angelmedia@telkomsa.net">angelmedia@telkomsa.net</a></p>
-      </article>
+    <div class="subtabs" role="tablist" aria-label="Orders sections">
+      <button type="button" class="subtab-btn active" role="tab" data-subtab-target="shirts" aria-selected="true">Show shirt</button>
+      <button type="button" class="subtab-btn" role="tab" data-subtab-target="photos" aria-selected="false">Show photos</button>
+      <button type="button" class="subtab-btn" role="tab" data-subtab-target="video" aria-selected="false">Show video</button>
     </div>
+
+    <article class="order-card subtab-content active" data-subtab="shirts" role="tabpanel">
+      <h3>Show shirt</h3>
+      <p>Commemorative <em>Enchanted World of Oz</em> shirt &mdash; <strong>R220&ndash;R240</strong> depending on size. Pay by EFT to <strong>Bronwyn Goble &middot; FNB 63085299725 &middot; branch 250655</strong>, ref: <em>Surname + Shirt</em>.</p>
+      <p class="cash-note"><strong>Orders are closed.</strong> Find your dancer&rsquo;s row below to confirm the size and check it shows <em>Paid</em> &mdash; if not, get the EFT through.</p>
+
+      <h4>Who&rsquo;s ordered</h4>
+      <div class="orders-list" id="shirt-orders-list" aria-live="polite">
+        <p class="muted">Loading the list&hellip;</p>
+      </div>
+    </article>
+
+    <article class="order-card subtab-content" data-subtab="photos" role="tabpanel">
+      <h3>Show photos</h3>
+      <p>Browse and order professional photos by <strong>Tantalising Twins</strong> &mdash; digital files, prints and canvases on Pixieset.</p>
+      <a class="cta-buy" href="https://tantalisingtwins.pixieset.com/dandeliondancestudiophotoshoot/" target="_blank" rel="noopener">Browse the gallery &rsaquo;</a>
+    </article>
+
+    <article class="order-card subtab-content" data-subtab="video" role="tabpanel">
+      <h3>Show video</h3>
+      <p>Professional show video by <strong>AngelMedia</strong> &mdash; HD USB <strong>R250</strong> per show, or download link <strong>R140</strong> per show.</p>
+      <p class="cash-note"><strong>Cash only.</strong> Pop the order slip and cash in an envelope and return to Louise &mdash; no EFT.</p>
+      <p class="muted">Queries: Mark Whitlock &middot; <a href="tel:+27833401390">083 340 1390</a> &middot; <a href="mailto:angelmedia@telkomsa.net">angelmedia@telkomsa.net</a></p>
+    </article>
 
     <p class="muted">Need help? <a href="#contact">Contact us directly</a> and we&rsquo;ll sort it.</p>
   </section>

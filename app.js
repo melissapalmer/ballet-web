@@ -260,6 +260,25 @@
     if (TABS.includes(initial)) switchTab(initial);
   }
 
+  function wireSubTabs() {
+    $$('.subtabs').forEach(group => {
+      const panel = group.closest('.tab-content') || document;
+      $$('.subtab-btn', group).forEach(btn => {
+        btn.addEventListener('click', () => {
+          const target = btn.dataset.subtabTarget;
+          $$('.subtab-btn', group).forEach(b => {
+            const on = b === btn;
+            b.classList.toggle('active', on);
+            b.setAttribute('aria-selected', on ? 'true' : 'false');
+          });
+          $$('.subtab-content', panel).forEach(c => {
+            c.classList.toggle('active', c.dataset.subtab === target);
+          });
+        });
+      });
+    });
+  }
+
   // -------- Util --------
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, c => ({
@@ -295,6 +314,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     wireLightbox();
     wireNav();
+    wireSubTabs();
     showRandomQuote();
     startCountdown();
     renderShirtOrders();
