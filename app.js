@@ -78,6 +78,49 @@
     return VOLUNTEER_GROUP_EMOJI[groupName] || '🎭';
   }
 
+  // Render an emoji as a Twemoji SVG <img> for consistent cross-device look,
+  // served from images/emoji/ (no CDN dependency). Falls back to the unicode
+  // glyph if we don't have an SVG mapped — alt text always carries the
+  // unicode for accessibility.
+  const EMOJI_SVG = {
+    '👧': '1f467',
+    '🌾': '1f33e',
+    '🤖': '1f916',
+    '🦁': '1f981',
+    '🧙': '1f9d9',
+    '🧙‍♀️': '1f9d9-200d-2640-fe0f',
+    '🐶': '1f436',
+    '🎈': '1f388',
+    '💚': '1f49a',
+    '🐦‍⬛': '1f426-200d-2b1b',
+    '🐒': '1f412',
+    '🟡': '1f7e1',
+    '🦋': '1f98b',
+    '❄️': '2744',
+    '🌹': '1f339',
+    '🌳': '1f333',
+    '🌪️': '1f32a',
+    '🌈': '1f308',
+    '🐮': '1f42e',
+    '🏝️': '1f3dd',
+    '🎤': '1f3a4',
+    '🎷': '1f3b7',
+    '💃': '1f483',
+    '🩰': '1fa70',
+    '⏱️': '23f1',
+    '🏃': '1f3c3',
+    '🌟': '1f31f',
+    '🌷': '1f337',
+    '🎶': '1f3b6',
+    '🎭': '1f3ad',
+  };
+
+  function asEmojiImg(emoji) {
+    const file = EMOJI_SVG[emoji];
+    if (!file) return escapeHtml(emoji);
+    return `<img class="emoji" src="images/emoji/${file}.svg" alt="${escapeHtml(emoji)}" loading="lazy" draggable="false">`;
+  }
+
   // -------- CSV parser --------
   function parseCSV(text) {
     const rows = [];
@@ -249,7 +292,7 @@
       return `
         <div class="roster-row">
           <dt class="roster-group">
-            <span class="roster-group-name"><span class="emoji">${emoji}</span> ${escapeHtml(cleanName)}</span>
+            <span class="roster-group-name">${asEmojiImg(emoji)} ${escapeHtml(cleanName)}</span>
             ${g.character ? `<span class="roster-character">${escapeHtml(g.character)}</span>` : ''}
           </dt>
           <dd class="roster-names">${g.pairs.map(renderPair).join('')}</dd>
