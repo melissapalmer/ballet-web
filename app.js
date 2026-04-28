@@ -155,7 +155,8 @@
       return;
     }
 
-    // Group rows by Group column, preserving source order.
+    // Group rows by Group column, preserving source order. Each row becomes
+    // a (mum, daughter) pair so we can render them as paired chips.
     const groups = new Map();
     rows.forEach(r => {
       const groupName = (r['Group'] || '').trim();
@@ -164,11 +165,12 @@
         groups.set(groupName, {
           name: groupName,
           character: (r['Character'] || '').trim(),
-          moms: [],
+          pairs: [],
         });
       }
       const mom = (r['Mum'] || '').trim();
-      if (mom) groups.get(groupName).moms.push(mom);
+      const daughter = (r['Daughter(s)'] || '').trim();
+      if (mom) groups.get(groupName).pairs.push({ mom, daughter });
     });
 
     if (!groups.size) {
@@ -182,6 +184,13 @@
       (g.name.startsWith('Special -') ? generalGroups : classGroups).push(g);
     }
 
+    const renderPair = p => `
+      <span class="roster-pair">
+        <span class="roster-pair-mom">${escapeHtml(p.mom)}</span>
+        ${p.daughter ? `<span class="roster-pair-daughter">${escapeHtml(p.daughter)}</span>` : ''}
+      </span>
+    `;
+
     const renderRow = g => {
       const emoji = VOLUNTEER_GROUP_EMOJI[g.name] || '🎭';
       const cleanName = g.name.replace(/^Special - /, '');
@@ -191,7 +200,7 @@
             <span class="roster-group-name">${emoji} ${escapeHtml(cleanName)}</span>
             ${g.character ? `<span class="roster-character">${escapeHtml(g.character)}</span>` : ''}
           </dt>
-          <dd class="roster-names">${g.moms.map(m => escapeHtml(m)).join(' &middot; ')}</dd>
+          <dd class="roster-names">${g.pairs.map(renderPair).join('')}</dd>
         </div>
       `;
     };
