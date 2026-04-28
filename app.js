@@ -8,6 +8,7 @@
 
   const SHOW_DATETIME = new Date('2026-05-16T12:00:00+02:00');
   const TABS = ['home', 'schedule', 'volunteers', 'orders', 'contact', 'studio', 'gallery'];
+  const SHIRT_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtuO_Pqn9sGLxePT51BqIr72aWzzTqjFlskuDs62Pjlj4zSDUJtI012A4LuWn3C1UsyD1X6z6vl75e/pub?output=csv';
 
   // -------- CSV parser --------
   function parseCSV(text) {
@@ -80,6 +81,59 @@
     };
     tick();
     const handle = setInterval(tick, 60_000);
+  }
+
+  // -------- Shirt orders (live list from published Google Sheet) --------
+  async function renderShirtOrders() {
+    const target = $('#shirt-orders-list');
+    if (!target) return;
+
+    const rows = await loadCSV(SHIRT_CSV_URL);
+    if (!rows) {
+      target.innerHTML = `<p class="muted">Couldn't load the order list right now &mdash; try refreshing in a moment.</p>`;
+      return;
+    }
+
+    const orders = rows.map(r => ({
+      name: (r["Child's Name (s)"] || '').trim(),
+      grade: (r["Child's Ballet Grade / Group (s)"] || '').trim(),
+      size: (r["Shirt Size(s)"] || '').trim(),
+      paid: /^y/i.test((r["Paid"] || '').trim()),
+    })).filter(o => o.name);
+
+    if (!orders.length) {
+      target.innerHTML = `<p class="muted">No orders yet.</p>`;
+      return;
+    }
+
+    orders.sort((a, b) => a.name.localeCompare(b.name));
+    const paidCount = orders.filter(o => o.paid).length;
+    const dueCount = orders.length - paidCount;
+
+    target.innerHTML = `
+      <p class="orders-summary">
+        <strong>${orders.length}</strong> orders &middot;
+        <span class="orders-summary-paid"><strong>${paidCount}</strong> paid</span> &middot;
+        <span class="orders-summary-due"><strong>${dueCount}</strong> still due</span>
+      </p>
+      <div class="orders-table-wrap">
+        <table class="orders-table">
+          <thead>
+            <tr><th scope="col">Dancer</th><th scope="col">Grade</th><th scope="col">Size</th><th scope="col">Paid</th></tr>
+          </thead>
+          <tbody>
+            ${orders.map(o => `
+              <tr class="${o.paid ? 'is-paid' : 'is-due'}">
+                <td>${escapeHtml(o.name)}</td>
+                <td>${escapeHtml(o.grade)}</td>
+                <td>${escapeHtml(o.size)}</td>
+                <td aria-label="${o.paid ? 'Paid' : 'Not paid'}">${o.paid ? '&check;' : '&times;'}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
   }
 
   // -------- Photos & lightbox --------
@@ -243,6 +297,7 @@
     wireNav();
     showRandomQuote();
     startCountdown();
+    renderShirtOrders();
     renderPhotos();
   });
 })();

@@ -7,7 +7,7 @@ A small static site for the Dandelion Studio of Dance moms preparing for the 202
 - **Home** — welcome, countdown to curtain, and four shortcut tiles (Schedule, Volunteer, Orders, Contact).
 - **Schedule** — four key dates: 1 May rehearsal (OLF), 9 May rehearsal (OLF), 15 May stage rehearsal (Playhouse), 16 May show day (12:00 + 15:00 performances) with venue, arrival/collection times and the backstage rule.
 - **Volunteers** — same shifts, each with a "Sign up" button linking to a Google Form.
-- **Orders** — show shirt (form), show photos (Tantalising Twins on Pixieset), show video (AngelMedia, cash + paper slip), name-spelling check (form).
+- **Orders** — show shirt (form + **live order list** from a published Google Sheet CSV), show photos (Tantalising Twins on Pixieset), show video (AngelMedia, cash + paper slip). Name-spelling is closed and handled internally by the studio — no card needed.
 - **Contact** — studio name, contact name, WhatsApp, email, Facebook.
 - **Studio** — short About paragraph, Facebook link, and a note about year-round studio leotards.
 - **Gallery** — hidden until the first photo is added (see below).
@@ -27,8 +27,6 @@ The placeholders currently in use:
 | Placeholder | What goes there |
 |---|---|
 | `#TODO-volunteer-form` | Google Form URL for volunteer signup (one form covering all four shifts) |
-| `#TODO-shirt-order-form` | Google Form URL for show-shirt orders |
-| `#TODO-name-spelling-form` | Google Form URL for program name-spelling check |
 | `#TODO-contact-name` | Studio contact person's name |
 | `#TODO-whatsapp-link` | `https://wa.me/27...` link target |
 | `#TODO-whatsapp-number` | Display version of the WhatsApp number |
