@@ -166,80 +166,15 @@
 
       <section id="schedule" class="tab-content" role="tabpanel">
         <h2>Schedule</h2>
-        <p class="muted">Four key dates between now and curtain up.</p>
+        <p class="muted">Key dates between now and curtain up.</p>
 
-        <ul class="shift-list">
+        <ul class="shift-list" id="schedule-list" aria-live="polite">
           <li class="shift-item">
-            <div class="shift-when">
-              <span class="shift-date">Fri 1 May 2026</span>
-              <span class="shift-time"
-                >Rehearsal &middot; 08:45 &ndash; 13:00</span
-              >
-            </div>
             <div class="shift-body">
-              <p class="shift-note">
-                <strong>OLF school hall.</strong> Normal ballet outfits. Send
-                snacks, water and a blanket. Moms on duty will look after the
-                girls.
-              </p>
-            </div>
-          </li>
-          <li class="shift-item">
-            <div class="shift-when">
-              <span class="shift-date">Sat 9 May 2026</span>
-              <span class="shift-time"
-                >Rehearsal &middot; 08:45 &ndash; 13:30</span
-              >
-            </div>
-            <div class="shift-body">
-              <p class="shift-note">
-                <strong>OLF school hall.</strong> Same drill as 1 May &mdash;
-                ballet outfits, snacks, water, blanket.
-              </p>
-            </div>
-          </li>
-          <li class="shift-item">
-            <div class="shift-when">
-              <span class="shift-date">Fri 15 May 2026</span>
-              <span class="shift-time"
-                >Stage rehearsal &middot; sign in 13:00</span
-              >
-            </div>
-            <div class="shift-body">
-              <p class="shift-note">
-                <strong>Playhouse stage door.</strong> All dancers in normal
-                ballet outfits. Sign in at 13:00 &mdash; moms take dancers to
-                the dressing rooms. Collection times will be shared closer to
-                the date.
-              </p>
-            </div>
-          </li>
-          <li class="shift-item">
-            <div class="shift-when">
-              <span class="shift-date">Sat 16 May 2026</span>
-              <span class="shift-time"
-                >Show day &middot; 12:00 &amp; 15:00 performances</span
-              >
-            </div>
-            <div class="shift-body">
-              <p class="shift-note">
-                <strong>Playhouse stage door.</strong> Arrive 09:30, sign in
-                &mdash; moms take dancers to the dressing rooms. Collection at
-                the stage door after the 15:00 show, around 17:30.
-              </p>
-              <p class="shift-note backstage-note">
-                <strong>Backstage rule:</strong> only moms on the volunteer
-                roster are allowed backstage on show day.
-              </p>
+              <p class="muted">Loading schedule&hellip;</p>
             </div>
           </li>
         </ul>
-
-        <p class="venue-note">
-          <strong>Venues:</strong> rehearsals 1 &amp; 9 May at OLF school hall
-          &middot; 15 &amp; 16 May at the Playhouse Drama Theatre, 231 Anton
-          Lembede Street, Durban.
-        </p>
       </section>
 
       <section id="info" class="tab-content" role="tabpanel">
@@ -428,17 +363,8 @@
             type="button"
             class="subtab-btn active"
             role="tab"
-            data-subtab-target="shirts"
-            aria-selected="true"
-          >
-            Show shirt
-          </button>
-          <button
-            type="button"
-            class="subtab-btn"
-            role="tab"
             data-subtab-target="photos"
-            aria-selected="false"
+            aria-selected="true"
           >
             Show photos
           </button>
@@ -455,38 +381,6 @@
 
         <article
           class="order-card subtab-content active"
-          data-subtab="shirts"
-          role="tabpanel"
-        >
-          <h3>Show shirt</h3>
-          <img
-            class="shirt-photo"
-            src="images/t-shirt.jpg"
-            alt="Black short-sleeve t-shirt with the gold &lsquo;The Enchanted World of Oz &middot; Dandelion Studio of Dance&rsquo; wordmark on the upper-right chest."
-            loading="lazy"
-          />
-          <p>
-            Commemorative <em>Enchanted World of Oz</em> shirt &mdash;
-            <strong>R220&ndash;R240</strong> depending on size. Pay by EFT to
-            <strong
-              >Bronwyn Goble &middot; FNB 63085299725 &middot; branch
-              250655</strong
-            >, ref: <em>Surname + Shirt</em>.
-          </p>
-          <p class="cash-note">
-            <strong>Orders are closed.</strong> Find your dancer&rsquo;s row
-            below to confirm the size and check it shows <em>Paid</em> &mdash;
-            if not, get the EFT through.
-          </p>
-
-          <h4>Who&rsquo;s ordered</h4>
-          <div class="orders-list" id="shirt-orders-list" aria-live="polite">
-            <p class="muted">Loading the list&hellip;</p>
-          </div>
-        </article>
-
-        <article
-          class="order-card subtab-content"
           data-subtab="photos"
           role="tabpanel"
         >

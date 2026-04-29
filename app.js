@@ -8,13 +8,13 @@
 
   const SHOW_DATETIME = new Date('2026-05-16T12:00:00+02:00');
   const TABS = ['home', 'schedule', 'info', 'volunteers', 'orders', 'contact', 'studio'];
-  const SHIRT_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRtuO_Pqn9sGLxePT51BqIr72aWzzTqjFlskuDs62Pjlj4zSDUJtI012A4LuWn3C1UsyD1X6z6vl75e/pub?output=csv';
   // Base URL for the studio's published Backstage Mums sheet. Each shift can
   // add `&gid=…` for its specific tab via a `data-gid` attribute on the
   // `.dynamic-roster` container; missing tabs fall back to "Roster being
   // finalised".
   const VOLUNTEER_CSV_BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTsTQ7jHG6shlT7d1Lnka3w2x8BfSde7vAvSM6zkWaSmN3VI11rcGdpwQiFjCyIBeNvkyIG08veZm7E/pub?output=csv';
   const INFO_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRMzn1EUWtQ11WBJR7cPzmCZ-8W4bWNEXW8kaCUke0YFwpjuDXbPxogv3daOzssVS40Jb9iFKBgQR8y/pub?output=csv';
+  const SCHEDULE_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSkPa4Inz4ieoWhKLppdbvGaRDtE0p4Sf90unsGCxb4V4q6Web7jGI9fyqqVmYf3QDpTVr5bSDxuKza/pub?output=csv';
 
   // Pick the right emoji from the dance Character column — first regex match
   // wins. Order from most-specific (named WoO characters) to most-general
@@ -196,55 +196,70 @@
     const handle = setInterval(tick, 60_000);
   }
 
-  // -------- Shirt orders (live list from published Google Sheet) --------
-  async function renderShirtOrders() {
-    const target = $('#shirt-orders-list');
+  // -------- Schedule (live from published Google Sheet) --------
+  // Sheet layout: col A = date heading (e.g. "Fri 1 May 2026"), col B =
+  // time/summary, col C = bullet detail. Rows with empty col A continue the
+  // previous shift. Show-day cards (16 May) get the backstage rule appended
+  // even though it isn't in the studio's sheet — it's a non-negotiable rule
+  // to keep visible.
+  async function renderSchedule() {
+    const target = $('#schedule-list');
     if (!target) return;
 
-    const rows = await loadCSV(SHIRT_CSV_URL);
-    if (!rows) {
-      target.innerHTML = `<p class="muted">Couldn't load the order list right now &mdash; try refreshing in a moment.</p>`;
+    let rows;
+    try {
+      const res = await fetch(SCHEDULE_CSV_URL, { cache: 'no-store' });
+      if (!res.ok) throw new Error(`${SCHEDULE_CSV_URL} → ${res.status}`);
+      rows = parseRawCSV(await res.text());
+    } catch (e) {
+      console.warn('Schedule load skipped:', e.message);
+      target.innerHTML = `<li class="shift-item"><div class="shift-body"><p class="muted">Couldn&rsquo;t load the schedule right now &mdash; try refreshing in a moment.</p></div></li>`;
       return;
     }
 
-    const orders = rows.map(r => ({
-      name: (r["Child's Name (s)"] || '').trim(),
-      size: (r["Shirt Size(s)"] || '').trim(),
-      paid: /^y/i.test((r["Paid"] || '').trim()),
-    })).filter(o => o.name);
+    const shifts = [];
+    let current = null;
+    for (const r of rows) {
+      const date = (r[0] || '').trim();
+      const time = (r[1] || '').trim();
+      const note = (r[2] || '').trim();
+      if (!date && !time && !note) continue;
+      if (date) {
+        if (current) shifts.push(current);
+        current = { date, time, notes: [] };
+        if (note) current.notes.push(note);
+      } else if (note) {
+        if (!current) continue;
+        current.notes.push(note);
+      }
+    }
+    if (current) shifts.push(current);
 
-    if (!orders.length) {
-      target.innerHTML = `<p class="muted">No orders yet.</p>`;
+    if (!shifts.length) {
+      target.innerHTML = `<li class="shift-item"><div class="shift-body"><p class="muted">Schedule coming soon.</p></div></li>`;
       return;
     }
 
-    orders.sort((a, b) => a.name.localeCompare(b.name));
-    const paidCount = orders.filter(o => o.paid).length;
-    const dueCount = orders.length - paidCount;
+    const fmt = s => escapeHtml(s).replace(/\n/g, '<br>');
+    const BACKSTAGE = `<p class="shift-note backstage-note"><strong>Backstage rule:</strong> only moms on the volunteer roster are allowed backstage on show day.</p>`;
 
-    target.innerHTML = `
-      <p class="orders-summary">
-        <strong>${orders.length}</strong> orders &middot;
-        <span class="orders-summary-paid"><strong>${paidCount}</strong> paid</span> &middot;
-        <span class="orders-summary-due"><strong>${dueCount}</strong> still due</span>
-      </p>
-      <div class="orders-table-wrap">
-        <table class="orders-table">
-          <thead>
-            <tr><th scope="col">Dancer</th><th scope="col">Size</th><th scope="col">Paid</th></tr>
-          </thead>
-          <tbody>
-            ${orders.map(o => `
-              <tr class="${o.paid ? 'is-paid' : 'is-due'}">
-                <td>${escapeHtml(o.name)}</td>
-                <td>${escapeHtml(o.size)}</td>
-                <td aria-label="${o.paid ? 'Paid' : 'Not paid'}">${o.paid ? '&check;' : '&times;'}</td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      </div>
-    `;
+    target.innerHTML = shifts.map(s => {
+      const bullets = s.notes.map(n => `<li class="info-line">${fmt(n)}</li>`).join('');
+      const list = bullets ? `<ul class="info-list">${bullets}</ul>` : '';
+      const isShowDay = /\b16\s*May\b/i.test(s.date);
+      return `
+        <li class="shift-item">
+          <div class="shift-when">
+            <span class="shift-date">${fmt(s.date)}</span>
+            ${s.time ? `<span class="shift-time">${fmt(s.time)}</span>` : ''}
+          </div>
+          <div class="shift-body">
+            ${list}
+            ${isShowDay ? BACKSTAGE : ''}
+          </div>
+        </li>
+      `;
+    }).join('');
   }
 
   // -------- Show info (live free-form sheet) --------
@@ -518,8 +533,8 @@
     wireSubTabs();
     showRandomQuote();
     startCountdown();
-    renderShirtOrders();
     renderVolunteers();
     renderInfo();
+    renderSchedule();
   });
 })();
