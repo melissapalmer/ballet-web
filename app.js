@@ -371,7 +371,9 @@
     }
 
     // Group rows by Group column, preserving source order. Each row becomes
-    // a (mum, daughter) pair so we can render them as paired chips.
+    // a (mum, secondary) pair where secondary prefers Phone if the sheet has
+    // a Phone column (show-day shifts), otherwise falls back to Daughter(s)
+    // (rehearsal shifts).
     const groups = new Map();
     rows.forEach(r => {
       const groupName = (r['Group'] || '').trim();
@@ -384,8 +386,9 @@
         });
       }
       const mom = (r['Mum'] || '').trim();
+      const phone = (r['Phone'] || '').trim();
       const daughter = (r['Daughter(s)'] || '').trim();
-      if (mom) groups.get(groupName).pairs.push({ mom, daughter });
+      if (mom) groups.get(groupName).pairs.push({ mom, secondary: phone || daughter });
     });
 
     if (!groups.size) {
@@ -402,7 +405,7 @@
     const renderPair = p => `
       <span class="roster-pair">
         <span class="roster-pair-mom">${escapeHtml(p.mom)}</span>
-        ${p.daughter ? `<span class="roster-pair-daughter">${escapeHtml(p.daughter)}</span>` : ''}
+        ${p.secondary ? `<span class="roster-pair-daughter">${escapeHtml(p.secondary)}</span>` : ''}
       </span>
     `;
 
